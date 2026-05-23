@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DISC Learning Hub</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f8f9fa;color:#1a1a1a;font-size:14px;line-height:1.6}
+.app{max-width:680px;margin:0 auto;padding:16px;min-height:100vh}
+h1{font-size:22px;font-weight:600}
+h2{font-size:18px;font-weight:600}
+h3{font-size:15px;font-weight:600}
+button{font-family:inherit;cursor:pointer}
+
+/* DISC colors */
+.d-color{color:#E53935}.i-color{color:#F59E0B}.s-color{color:#16A34A}.c-color{color:#1D4ED8}
+.d-bg{background:#FEF2F2;border:1px solid #FECACA}
+.i-bg{background:#FFFBEB;border:1px solid #FDE68A}
+.s-bg{background:#F0FDF4;border:1px solid #BBF7D0}
+.c-bg{background:#EFF6FF;border:1px solid #BFDBFE}
+
+.badge{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:6px;color:#fff;font-weight:600;font-size:11px;flex-shrink:0}
+.badge-d{background:#E53935}.badge-i{background:#F59E0B}.badge-s{background:#16A34A}.badge-c{background:#1D4ED8}
+
+/* Cards */
+.card{background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:14px 16px;margin-bottom:8px}
+.card-hover:hover{background:#f9fafb}
+
+/* Buttons */
+.btn{padding:11px 16px;border-radius:10px;font-size:14px;font-weight:500;border:1px solid #d1d5db;background:#fff;transition:background .15s}
+.btn:hover{background:#f3f4f6}
+.btn-primary{background:#1D4ED8;color:#fff;border:none}
+.btn-primary:hover{background:#1e40af}
+.btn-back{background:none;border:none;color:#6b7280;padding:0;display:flex;align-items:center;gap:6px;font-size:14px;margin-bottom:20px}
+.btn-back:hover{color:#374151}
+
+/* Disc item card */
+.disc-item{border-radius:12px;padding:14px 16px;margin-bottom:8px}
+.disc-item-header{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.disc-item-body{font-size:13px;color:#6b7280;line-height:1.7;white-space:pre-line}
+
+/* Progress */
+.progress-bar{height:5px;border-radius:3px;background:#e5e7eb;overflow:hidden;margin-top:6px}
+.progress-fill{height:100%;border-radius:3px;transition:width .3s}
+
+/* Quiz */
+.quiz-opt{padding:11px 13px;border-radius:10px;border:1px solid #e5e7eb;background:#fff;display:flex;align-items:flex-start;gap:10px;cursor:pointer;margin-bottom:7px;transition:all .15s}
+.quiz-opt:hover{background:#f9fafb}
+.quiz-opt.selected-d{border:2px solid #E53935;background:#FEF2F2}
+.quiz-opt.selected-i{border:2px solid #F59E0B;background:#FFFBEB}
+.quiz-opt.selected-s{border:2px solid #16A34A;background:#F0FDF4}
+.quiz-opt.selected-c{border:2px solid #1D4ED8;background:#EFF6FF}
+.opt-badge{width:26px;height:26px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:12px;flex-shrink:0;background:#f3f4f6;color:#6b7280}
+.opt-badge.sel{color:#fff}
+.opt-badge.sel-d{background:#E53935}.opt-badge.sel-i{background:#F59E0B}.opt-badge.sel-s{background:#16A34A}.opt-badge.sel-c{background:#1D4ED8}
+
+/* Tabs */
+.tabs{display:flex;overflow-x:auto;gap:6px;margin-bottom:20px;padding-bottom:4px;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{padding:7px 12px;border-radius:8px;border:1px solid #e5e7eb;background:#fff;font-size:12px;white-space:nowrap;cursor:pointer;transition:all .15s}
+.tab.active{background:#1D4ED8;color:#fff;border-color:#1D4ED8}
+
+/* Accordion */
+.acc-header{padding:12px 14px;cursor:pointer;display:flex;align-items:center;gap:10px;border-radius:12px}
+.acc-header:hover{background:#f9fafb}
+.acc-body{padding:0 14px 14px}
+.acc-item{border:1px solid #e5e7eb;border-radius:12px;overflow:hidden;margin-bottom:8px}
+.acc-item.answered{border-color:#BBF7D0}
+
+/* Nav bar */
+.nav-row{display:flex;gap:8px;margin-top:16px}
+.home-topics{display:flex;flex-direction:column;gap:8px;margin-bottom:24px}
+.home-topic-btn{display:flex;align-items:center;gap:12px;padding:12px 16px;border-radius:10px;border:1px solid #e5e7eb;background:#fff;cursor:pointer;text-align:left;width:100%;font-size:14px;font-weight:500;transition:background .15s}
+.home-topic-btn:hover{background:#f9fafb}
+.home-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:24px}
+.home-disc-card{padding:14px 16px;border-radius:12px}
+
+.section-label{font-size:12px;font-weight:600;color:#9ca3af;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px}
+.result-box{text-align:center;padding:32px 20px;border-radius:16px;border:1px solid #e5e7eb;background:#f9fafb;margin-bottom:20px}
+
+.legend{margin-top:20px;padding:14px 16px;border-radius:12px;border:1px solid #e5e7eb;background:#f9fafb}
+.legend-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:10px}
+.legend-item{display:flex;align-items:center;gap:8px}
+
+.chevron{font-size:12px;color:#9ca3af;margin-left:auto}
+.answered-badge{padding:2px 8px;border-radius:6px;font-size:11px;font-weight:600;margin-left:4px}
+
+.page{display:none}.page.active{display:block}
+</style>
+</head>
+<body>
+<div class="app">
+
+<!-- HOME PAGE -->
+<div id="page-home" class="page active">
+  <div style="text-align:center;margin-bottom:28px;padding-top:8px">
+    <div style="display:flex;justify-content:center;gap:8px;margin-bottom:14px">
+      <div style="width:48px;height:48px;border-radius:12px;background:#E53935;color:#fff;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:700">D</div>
+      <div style="width:48px;height:48px;border-radius:12px;background:#F59E0B;color:#fff;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:700">I</div>
+      <div style="width:48px;height:48px;border-radius:12px;background:#16A34A;color:#fff;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:700">S</div>
+      <div style="width:48px;height:48px;border-radius:12px;background:#1D4ED8;color:#fff;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:700">C</div>
+    </div>
+    <h1 style="margin-bottom:6px">DISC Learning Hub</h1>
+    <p style="color:#6b7280;font-size:13px">Học & ôn tập toàn diện 4 nhóm phong cách hành vi DISC</p>
+  </div>
+
+  <div class="home-grid">
+    <div class="home-disc-card d-bg">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
+        <span style="font-size:18px">⚡</span>
+        <span class="d-color" style="font-weight:600;font-size:14px">D — Dominance</span>
+      </div>
+      <p style="font-size:12px;color:#6b7280">Quyết đoán · Thẳng thắn · Hướng kết quả</p>
+    </div>
+    <div class="home-disc-card i-bg">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
+        <span style="font-size:18px">☀️</span>
+        <span class="i-color" style="font-weight:600;font-size:14px">I — Influence</span>
+      </div>
+      <p style="font-size:12px;color:#6b7280">Nhiệt tình · Kết nối · Truyền cảm hứng</p>
+    </div>
+    <div class="home-disc-card s-bg">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
+        <span style="font-size:18px">🌿</span>
+        <span class="s-color" style="font-weight:600;font-size:14px">S — Steadiness</span>
+      </div>
+      <p style="font-size:12px;color:#6b7280">Kiên nhẫn · Ổn định · Đáng tin cậy</p>
+    </div>
+    <div class="home-disc-card c-bg">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
+        <span style="font-size:18px">🔬</span>
+        <span class="c-color" style="font-weight:600;font-size:14px">C — Conscientiousness</span>
+      </div>
+      <p style="font-size:12px;color:#6b7280">Chính xác · Logic · Cầu toàn</p>
+    </div>
+  </div>
+
+  <p class="section-label">📚 Chủ đề học</p>
+  <div class="home-topics">
+    <button class="home-topic-btn" onclick="showLearn('overview')">
+      <span>🗂️</span><span style="flex:1">Tổng quan 4 nhóm DISC</span><span style="color:#9ca3af">›</span>
+    </button>
+    <button class="home-topic-btn" onclick="showLearn('strengths')">
+      <span>⭐</span><span style="flex:1">Điểm mạnh & điểm yếu</span><span style="color:#9ca3af">›</span>
+    </button>
+    <button class="home-topic-btn" onclick="showLearn('management')">
+      <span>👑</span><span style="flex:1">Phong cách quản lý</span><span style="color:#9ca3af">›</span>
+    </button>
+    <button class="home-topic-btn" onclick="showLearn('conflict')">
+      <span>⚡</span><span style="flex:1">Conflict giữa các nhóm</span><span style="color:#9ca3af">›</span>
+    </button>
+    <button class="home-topic-btn" onclick="showLearn('communication')">
+      <span>💬</span><span style="flex:1">Giao tiếp hiệu quả</span><span style="color:#9ca3af">›</span>
+    </button>
+    <button class="home-topic-btn" onclick="showLearn('stress')">
+      <span>🔥</span><span style="flex:1">Phản ứng với áp lực & stress</span><span style="color:#9ca3af">›</span>
+    </button>
+  </div>
+
+  <button class="btn btn-primary" style="width:100%;padding:14px;font-size:15px;border-radius:12px" onclick="showQuiz()">
+    🧠 Bắt đầu ôn tập — 50 câu quiz
+  </button>
+</div>
+
+<!-- LEARN PAGE -->
+<div id="page-learn" class="page">
+  <button class="btn-back" onclick="showHome()">← Quay lại</button>
+  <div id="learn-content"></div>
+</div>
+
+<!-- QUIZ PAGE -->
+<div id="page-quiz" class="page">
+  <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px">
+    <button class="btn-back" style="margin:0" onclick="showHome()">←</button>
+    <div style="flex:1">
+      <div style="display:flex;justify-content:space-between;margin-bottom:4px">
+        <span style="font-size:13px;font-weight:600">Quiz 50 câu</span>
+        <span id="quiz-progress-text" style="font-size:13px;color:#6b7280">0/50</span>
+      </div>
+      <div class="progress-bar">
+        <div id="quiz-progress-bar" class="progress-fill" style="width:0%;background:linear-gradient(90deg,#E53935,#F59E0B,#16A34A,#1D4ED8)"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tabs" id="quiz-tabs"></div>
+  <div id="quiz-questions"></div>
+
+  <div class="nav-row">
+    <button id="btn-prev" class="btn" onclick="quizPrev()" style="padding:11px 16px">← Trước</button>
+    <button id="btn-next" class="btn btn-primary" onclick="quizNext()" style="flex:1;padding:11px 16px">Tiếp →</button>
+  </div>
+
+  <div class="legend">
+    <p style="font-size:12px;font-weight:600;color:#9ca3af;margin-bottom:10px">Chú giải DISC</p>
+    <div class="legend-grid">
+      <div class="legend-item"><span class="badge badge-d">D</span><div><div class="d-color" style="font-size:12px;font-weight:600">D — Dominance</div><div style="font-size:11px;color:#6b7280">Quyết đoán</div></div></div>
+      <div class="legend-item"><span class="badge badge-i">I</span><div><div class="i-color" style="font-size:12px;font-weight:600">I — Influence</div><div style="font-size:11px;color:#6b7280">Nhiệt tình</div></div></div>
+      <div class="legend-item"><span class="badge badge-s">S</span><div><div class="s-color" style="font-size:12px;font-weight:600">S — Steadiness</div><div style="font-size:11px;color:#6b7280">Kiên nhẫn</div></div></div>
+      <div class="legend-item"><span class="badge badge-c">C</span><div><div class="c-color" style="font-size:12px;font-weight:600">C — Conscientiousness</div><div style="font-size:11px;color:#6b7280">Chính xác</div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- RESULT PAGE -->
+<div id="page-result" class="page">
+  <div class="result-box">
+    <div id="result-emoji" style="font-size:48px;margin-bottom:8px">🏆</div>
+    <div id="result-score" style="font-size:48px;font-weight:700">50</div>
+    <div style="color:#6b7280;font-size:14px">/ 50 câu đã trả lời</div>
+  </div>
+  <p class="section-label">Tiến độ theo chủ đề</p>
+  <div id="result-cats" style="margin-bottom:20px"></div>
+  <div style="padding:12px 14px;border-radius:10px;background:#f9fafb;border:1px solid #e5e7eb;font-size:13px;color:#6b7280;line-height:1.6;margin-bottom:16px">
+    Lưu ý: Đây là bài ôn tập nhận diện hành vi, không có đúng/sai tuyệt đối. Mỗi câu hỏi có 4 đáp án — mỗi đáp án ứng với 1 nhóm DISC.
+  </div>
+  <div style="display:flex;gap:8px">
+    <button class="btn" style="flex:1;padding:12px" onclick="resetQuiz()">🔄 Làm lại</button>
+    <button class="btn btn-primary" style="flex:1;padding:12px" onclick="showHome()">🏠 Trang chủ</button>
+  </div>
+</div>
+
+</div>
+<script>
+const DISC_COLORS = {D:"#E53935",I:"#F59E0B",S:"#16A34A",C:"#1D4ED8"};
+const DISC_LABEL = {D:"Dominance",I:"Influence",S:"Steadiness",C:"Conscientiousness"};
+const DISC_ICON = {D:"⚡",I:"☀️",S:"🌿",C:"🔬"};
+const DISC_DESC = {D:"Quyết đoán · Thẳng thắn · Hướng kết quả",I:"Nhiệt tình · Kết nối · Truyền cảm hứng",S:"Kiên nhẫn · Ổn định · Đáng tin cậy",C:"Chính xác · Logic · Cầu toàn"};
+
+const KNOWLEDGE = {
+  overview:{title:"Tổng quan 4 nhóm DISC",sections:[
+    {heading:"Biểu tượng & từ khóa",items:[
+      {disc:"D",symbol:"🔴 Lửa",keywords:"Quyết đoán — Thẳng thắn — Kết quả",quote:'"Kết quả cuối cùng là gì?"'},
+      {disc:"I",symbol:"🟡 Ánh sáng",keywords:"Nhiệt huyết — Lạc quan — Kết nối",quote:'"Nghe hay quá, kể thêm đi!"'},
+      {disc:"S",symbol:"🟢 Cây xanh",keywords:"Kiên nhẫn — Trung thành — Ổn định",quote:'"Mình cùng làm nhé, từ từ thôi"'},
+      {disc:"C",symbol:"🔵 Nước",keywords:"Cẩn thận — Logic — Chất lượng",quote:'"Cho mình xem data trước đã"'},
+    ]},
+    {heading:"Nhịp sống & năng lượng",items:[
+      {disc:"D",detail:"Nhanh, mạnh, dồn dập — như lửa cháy"},
+      {disc:"I",detail:"Nhanh, sôi nổi, bùng nổ — như ánh sáng"},
+      {disc:"S",detail:"Chậm, đều đặn, bền bỉ — như cây xanh"},
+      {disc:"C",detail:"Chậm, kỹ lưỡng, sâu — như nước chảy"},
+    ]},
+    {heading:"Câu nói đại diện & tính cách cốt lõi",items:[
+      {disc:"D",detail:'Mạnh mẽ, quyết đoán, tự tin, độc lập. Luôn muốn kiểm soát tình huống. Không thích bị phụ thuộc.'},
+      {disc:"I",detail:'Cởi mở, lạc quan, nhiệt tình, giàu năng lượng. Thích giao tiếp, kết nối và truyền cảm hứng.'},
+      {disc:"S",detail:'Điềm tĩnh, kiên nhẫn, đáng tin cậy, trung thành. Coi trọng sự hài hòa và ổn định.'},
+      {disc:"C",detail:'Cẩn thận, logic, có hệ thống, cầu toàn. Coi trọng chất lượng, sự chính xác.'},
+    ]},
+  ]},
+  strengths:{title:"Điểm mạnh & điểm yếu",sections:[
+    {heading:"Điểm mạnh chung",items:[
+      {disc:"D",detail:"Ra quyết định nhanh · Dám chấp nhận rủi ro · Tập trung kết quả · Không ngại đối đầu · Năng lượng cao, push được mọi người"},
+      {disc:"I",detail:"Lạc quan, năng lượng cao · Giao tiếp giỏi, truyền cảm hứng · Networking tốt · Sáng tạo, nhiều ý tưởng · Tạo không khí tích cực"},
+      {disc:"S",detail:"Trung thành, đáng tin cậy · Kiên nhẫn, bình tĩnh · Lắng nghe giỏi, đồng cảm tự nhiên · Hỗ trợ team không tính toán · Ổn định, không drama"},
+      {disc:"C",detail:"Phân tích sâu, logic chặt chẽ · Chính xác, chú trọng chi tiết · Tiêu chuẩn cao · Hệ thống hóa giỏi · Cẩn trọng, ít sai sót"},
+    ]},
+    {heading:"Điểm yếu tiềm ẩn",items:[
+      {disc:"D",detail:"Thiếu kiên nhẫn · Áp đặt, ít lắng nghe · Bỏ qua cảm xúc người khác · Quá vội vàng · Có thể tạo áp lực quá mức"},
+      {disc:"I",detail:"Thiếu kỷ luật follow-up · Hứa nhiều quên nhiều · Thiếu chi tiết, bỏ sót · Quá lạc quan, đánh giá thấp rủi ro · Dễ bị phân tán"},
+      {disc:"S",detail:"Quá nhượng bộ · Khó nói 'không' · Ngại thay đổi · Chậm ra quyết định · Chịu đựng quá lâu mới lên tiếng"},
+      {disc:"C",detail:"Cầu toàn quá mức · Chậm ra quyết định · Khó delegate · Hay soi lỗi chi tiết · Thiếu linh hoạt khi cần thay đổi nhanh"},
+    ]},
+    {heading:"Dấu hiệu khi quá đà ⚠️",items:[
+      {disc:"D",detail:"Nói nhiều hơn nghe gấp 5 lần · Gắt khi bị trái ý · Đập bàn / ngắt lời người khác · Ra quyết định không hỏi ai"},
+      {disc:"I",detail:"Hứa nhiều quên nhiều · Mỗi tuần một ý tưởng mới nhưng không cái nào xong · Deadline luôn trễ · Né tránh feedback tiêu cực"},
+      {disc:"S",detail:"Gật đầu nhưng trong lòng không đồng ý · Ôm hết việc của người khác · Im lặng trong meeting dù có ý kiến · Burnout âm thầm"},
+      {disc:"C",detail:"Review 5 lần vẫn chưa ship · Từ chối quyết định vì 'chưa đủ dữ liệu' · Chỉ ra lỗi nhưng không công nhận điểm tốt · Làm 1 mình thay vì delegate"},
+    ]},
+    {heading:"Tỏa sáng khi... / Suy yếu khi...",items:[
+      {disc:"D",detail:"Tỏa sáng: Có khủng hoảng + tự chủ cao\nSuy yếu: Phải làm tiểu tiết lặp lại + ít autonomy\nCàng stress càng: Độc đoán hơn"},
+      {disc:"I",detail:"Tỏa sáng: Cần năng lượng + ý tưởng mới\nSuy yếu: Phải làm 1 mình + task lặp lại\nCàng stress càng: Nói nhiều hơn / né tránh"},
+      {disc:"S",detail:"Tỏa sáng: Cần ổn định + team hỗ trợ\nSuy yếu: Bị ép thay đổi gấp + ít info\nCàng stress càng: Im lặng / thu mình"},
+      {disc:"C",detail:"Tỏa sáng: Cần độ chính xác + đủ thời gian\nSuy yếu: Bị ép quyết nhanh + thiếu data\nCàng stress càng: Phân tích lâu hơn"},
+    ]},
+  ]},
+  management:{title:"Phong cách quản lý",sections:[
+    {heading:"Phong cách quản lý tự nhiên",items:[
+      {disc:"D",detail:'Chỉ huy — ra lệnh rõ, push kết quả, chịu trách nhiệm.\nSlogan: "Đi theo tôi"\nĐiểm mạnh: Ra quyết định nhanh trong khủng hoảng, push kết quả khi deadline gấp'},
+      {disc:"I",detail:'Truyền cảm hứng — tạo vision đẹp, motivate, năng lượng.\nSlogan: "Chúng ta sẽ tuyệt vời"\nĐiểm mạnh: Tạo team gắn kết, truyền cảm hứng khi team mệt, build culture vui vẻ'},
+      {disc:"S",detail:'Đồng hành — hỗ trợ, lắng nghe, tạo an toàn.\nSlogan: "Mình cùng nhau nhé"\nĐiểm mạnh: Giữ team ổn định, lắng nghe member, tạo loyalty'},
+      {disc:"C",detail:'Kiến trúc sư — thiết lập quy trình, đặt chuẩn, kiểm soát chất lượng.\nSlogan: "Làm đúng quy trình"\nĐiểm mạnh: Xây hệ thống tốt, đảm bảo chất lượng, phân tích vấn đề sâu'},
+    ]},
+    {heading:"Điểm mù khi quản lý ⚠️",items:[
+      {disc:"D",detail:"Thiếu kiên nhẫn với người chậm · Gây áp lực quá mức · Không lắng nghe đủ · Bỏ qua cảm xúc team · Quá tập trung kết quả, quên con người"},
+      {disc:"I",detail:"Thiếu follow-up · Hứa nhiều quên nhiều · Né conflict · Quá dễ dãi với underperformer · Thiếu quy trình, cấu trúc"},
+      {disc:"S",detail:"Ngại đối đầu · Chấp nhận hiện trạng quá lâu · Khó push người yếu · Chậm ra quyết định · Quá bảo vệ member"},
+      {disc:"C",detail:"Cầu toàn quá mức · Khó delegate · Micromanage chất lượng · Thiếu empathy · Quá cứng nhắc với quy trình"},
+    ]},
+    {heading:"Team mong muốn nhất từ họ",items:[
+      {disc:"D",detail:"Thêm empathy, lắng nghe, kiên nhẫn hơn\nLời khuyên: Hãy chậm lại 1 nhịp. Hỏi trước khi nói. Ghi nhận quá trình, không chỉ kết quả."},
+      {disc:"I",detail:"Thêm kỷ luật, follow-up, nhất quán hơn\nLời khuyên: Hãy viết xuống cam kết. Follow-up mỗi tuần. Đừng né những cuộc trò chuyện khó."},
+      {disc:"S",detail:"Thêm quyết đoán, direction rõ ràng hơn\nLời khuyên: Hãy nói ra ý kiến của mình. Đối mặt conflict sớm. Set deadline cho bản thân khi ra quyết định."},
+      {disc:"C",detail:"Thêm linh hoạt, tin tưởng hơn, bớt soi chi tiết\nLời khuyên: Hãy tin tưởng người khác hơn. Chấp nhận 80% đã đủ tốt. Cho feedback kèm theo sự quan tâm."},
+    ]},
+    {heading:"Cách giao việc & 1:1 hiệu quả",items:[
+      {disc:"D",detail:"Giao việc: Ngắn — kết quả kỳ vọng + deadline. Cho nhiều quyền tự quyết.\n1:1: 15-20 phút, đi thẳng vấn đề. Mở đầu: 'Em đang cần gì từ anh?'\nKhông nên: Nói dài, hỏi nhiều câu cảm xúc, micromanage"},
+      {disc:"I",detail:"Giao việc: Giải thích WHY trước — tại sao quan trọng, impact gì. Cho không gian sáng tạo.\n1:1: Linh hoạt, cho nói thoải mái. Mở đầu: 'Tuần này em thế nào?'\nKhông nên: Chỉ nói task/deadline, không hỏi thăm"},
+      {disc:"S",detail:"Giao việc: Step-by-step — làm gì trước, làm gì sau, timeline rõ. Hướng dẫn rõ + check-in.\n1:1: Đều đặn, đúng lịch, đừng cancel. Mở đầu: 'Anh muốn check-in xem em ok không'\nKhông nên: Hỏi trước đám đông, cancel liên tục"},
+      {disc:"C",detail:"Giao việc: Brief chi tiết — spec, tiêu chuẩn, data cần, tham chiếu. Rõ tiêu chuẩn output.\n1:1: Đúng lịch, có agenda trước. Mở đầu: 'Anh gửi agenda trước, em xem nhé'\nKhông nên: Nói chung chung, thay đổi agenda đột ngột"},
+    ]},
+  ]},
+  conflict:{title:"Conflict giữa các nhóm",sections:[
+    {heading:"Bản đồ xung đột",items:[
+      {disc:"D",detail:"🔴 D + S — NHANH vs CHẬM\nCặp xung đột phổ biến nhất. D muốn nhanh, quyết, hành động. S muốn chậm, kỹ, ổn định.\nHiểu lầm: D nghĩ S lười/không cam kết. S nghĩ D không quan tâm cảm xúc."},
+      {disc:"I",detail:"🔴 I + C — CẢM XÚC vs LOGIC\nKhó nhất về giao tiếp. I nói bằng cảm xúc, C nghe bằng logic.\nHiểu lầm: I nghĩ C không ủng hộ vì im lặng. C nghĩ I không nghiêm túc."},
+      {disc:"S",detail:"🟠 D + C — TỐC ĐỘ vs CHẤT LƯỢNG\nCùng hướng kết quả nhưng nhịp khác. D muốn nhanh (80% ok), C muốn kỹ (100%).\nHiểu lầm: D nghĩ C cản trở, overthink. C nghĩ D không coi trọng chất lượng."},
+      {disc:"C",detail:"🟡 D + I — TRANH LEADERSHIP\nCả hai muốn dẫn dắt. Khi cùng hướng = combo mạnh. Khi trái hướng = bùng nổ.\n🟢 S + C — AI SẼ QUYẾT ĐỊNH?\nCặp ít xung đột nhất nhưng không ai dám push, không ai dám quyết."},
+    ]},
+    {heading:"Giải pháp cho từng cặp",items:[
+      {disc:"D",detail:"D quản lý S: Chậm lại 1 nhịp khi giao việc · Giải thích LÝ DO khi thay đổi · Tạo kênh an toàn để S phản hồi (1:1 riêng)\nS quản lý D: Mạnh dạn nói ý kiến sớm · Đưa ra deadline cụ thể · Nói thẳng khi D gây áp lực quá"},
+      {disc:"I",detail:"I quản lý C: Chuẩn bị data/logic trước · Cho C thời gian suy nghĩ · Trả lời mọi câu hỏi chi tiết\nC quản lý I: Đừng giết ý tưởng bằng câu hỏi quá sớm · Khen trước, góp ý sau · Mở lòng với ý tưởng chưa hoàn hảo"},
+      {disc:"S",detail:"D quản lý C: Phân biệt task nào cần NHANH, task nào cần KỸ · Nói rõ kỳ vọng: '80% ok hay 100%?'\nC quản lý D: Cho D thấy risk nếu quá vội — dùng data · Ra quyết định nhanh hơn · Đừng micromanage D"},
+      {disc:"C",detail:"Key takeaways:\n1. Xung đột giữa các nhóm là BÌNH THƯỜNG — không phải ai đó sai\n2. Conflict lớn nhất thường vì HIỂU NHẦM, không phải bất đồng thực sự\n3. Im lặng ≠ đồng ý (đặc biệt với S và C)\n4. Biết phong cách của mình = biết ĐIỂM MÙ của mình"},
+    ]},
+  ]},
+  communication:{title:"Giao tiếp hiệu quả",sections:[
+    {heading:"Cách giao tiếp hiệu quả với từng nhóm",items:[
+      {disc:"D",detail:"→ Đi thẳng vào vấn đề trong 30 giây đầu\n→ Bullet points, không lan man\n→ Đưa lựa chọn, không câu hỏi mở\n→ Nói KẾT QUẢ trước, lý do sau\n→ Tránh: vòng vo, giấu thông tin, tỏ ra yếu đuối"},
+      {disc:"I",detail:"→ Hỏi về CON NGƯỜI trước khi vào công việc\n→ Cho I nói trước, thể hiện\n→ Khen ngợi công khai\n→ Lặp lại cam kết bằng VĂN BẢN sau nói chuyện\n→ Tránh: blame trước mặt team, làm mất mặt"},
+      {disc:"S",detail:"→ Tạo không gian an toàn, không vội\n→ Hỏi câu mở, đợi câu trả lời\n→ Đừng ngắt lời S — họ cần thời gian\n→ Muốn ý kiến thật, hỏi RIÊNG, không nhóm\n→ Tránh: thông báo đột ngột không giải thích"},
+      {disc:"C",detail:"→ Chuẩn bị DATA + FACTS trước\n→ Dùng email/văn bản nhiều hơn lời nói\n→ Cho thời gian suy nghĩ, đừng ép trả lời ngay\n→ Tôn trọng câu hỏi chi tiết\n→ Tránh: nói chung chung không data, thay đổi mà không logic"},
+    ]},
+    {heading:"Cách khen & ghi nhận",items:[
+      {disc:"D",detail:"Khen gì: Kết quả, thành tích, impact\nKhen ở đâu: Riêng tư hoặc ngắn gọn trước team — D không cần fanfare\nVí dụ: \"Em đã deliver đúng hạn, impressive\"\nSai lầm: Khen dài dòng, khen quá nhiều → D thấy giả"},
+      {disc:"I",detail:"Khen gì: Sự sáng tạo, năng lượng, ảnh hưởng tới team\nKhen ở đâu: TRƯỚC MẶT MỌI NGƯỜI — I cần spotlight\nVí dụ: \"Ý tưởng của em hay quá, cả team đều thấy!\"\nSai lầm: Khen riêng tư → I cảm thấy không ai biết"},
+      {disc:"S",detail:"Khen gì: Sự kiên trì, đáng tin cậy, đồng hành\nKhen ở đâu: Riêng tư, chân thành, cụ thể\nVí dụ: \"Anh rất trân trọng sự kiên trì của em\"\nSai lầm: Không khen vì thấy 'bình thường' → S cảm thấy invisible"},
+      {disc:"C",detail:"Khen gì: Chất lượng, sự chính xác, tư duy logic\nKhen ở đâu: Riêng tư, kèm chi tiết cụ thể đã làm tốt gì\nVí dụ: \"Phần phân tích của em rất kỹ, chất lượng cao\"\nSai lầm: Khen chung chung 'tốt lắm' → C không tin vì thiếu cụ thể"},
+    ]},
+  ]},
+  stress:{title:"Phản ứng với áp lực & stress",sections:[
+    {heading:"Phản ứng tự nhiên khi stress",items:[
+      {disc:"D",detail:"→ Trở nên ĐỘC ĐOÁN hơn, cứng đầu hơn\n→ Ngắt lời, gắt giọng\n→ Đẩy mạnh hơn nữa, không lùi\n→ Bỏ qua process, đi tắt\nKhuyếch đại: Nóng nảy → bullying · Áp đặt → micromanage · Thiếu kiên nhẫn → coi thường"},
+      {disc:"I",detail:"→ NÓI NHIỀU HƠN, BIỆN MINH dài\n→ Tránh né, kiếm cớ đi chỗ khác\n→ Đổ lỗi cho hoàn cảnh / người khác\n→ Cảm xúc bùng nổ, sau đó tự dằn vặt\nKhuyếch đại: Hứa quá → lừa dối · Lạc quan → phủ nhận thực tế"},
+      {disc:"S",detail:"→ IM LẶNG, thu mình lại\n→ Đồng ý mọi thứ rồi âm thầm khổ\n→ Tránh confront, làm việc một mình\n→ Tích tụ, có thể bùng phát đột ngột (rare)\nKhuyếch đại: Hiền → 'doormat' · Kiên nhẫn → cam chịu · Ổn định → stuck"},
+      {disc:"C",detail:"→ Rút lui, phân tích nhiều hơn\n→ Tránh quyết định, đòi thêm data\n→ Soi lỗi nhiều hơn bình thường\n→ Lạnh lùng hơn, ít tương tác\nKhuyếch đại: Cẩn trọng → tê liệt · Chi tiết → nhặt sạn · Logic → lạnh lùng phê phán"},
+    ]},
+    {heading:"Manager cần làm gì khi họ stress",items:[
+      {disc:"D",detail:"✅ Cho không gian, đừng tranh cãi trực tiếp khi nóng\n✅ Đợi nguội rồi nói chuyện\n✅ Đưa DATA + KẾT QUẢ — D nghe số\n✅ Tránh phán xét cảm xúc"},
+      {disc:"I",detail:"✅ Cho I nói hết, đừng cắt\n✅ Lắng nghe rồi quay về FACT cụ thể\n✅ Hỏi: 'Em cần gì để hoàn thành?'\n✅ Tránh xấu hổ I trước người khác"},
+      {disc:"S",detail:"✅ 1:1 KÍN ĐÁO, riêng tư\n✅ Hỏi cụ thể: 'Anh thấy em đang ôm việc của X, có quá không?'\n✅ Cho S thời gian suy nghĩ, không ép trả lời ngay\n✅ Tôn trọng need-for-stability"},
+      {disc:"C",detail:"✅ Cho TIME + THÔNG TIN đầy đủ\n✅ Đừng ép quyết định nhanh khi C đang căng\n✅ Hỏi: 'Em cần thêm data gì để chốt được?'\n✅ Tôn trọng need-for-correctness"},
+    ]},
+  ]},
+};
+
+const QUESTIONS = [
+  {id:1,title:"Cách viết tin nhắn/email",cat:"Giao tiếp & Tương tác",options:{D:"Ngắn gọn, đi thẳng vấn đề, ít emoji",I:"Dài, nhiều emoji, kể context, hay gửi voice",S:'Lịch sự, đầy đủ "anh/chị", hay hỏi lại "em hiểu đúng chưa?"',C:"Đánh số, có bullet point, attach file đầy đủ"}},
+  {id:2,title:"Trong meeting",cat:"Giao tiếp & Tương tác",options:{D:"Nói thẳng, muốn kết luận nhanh, hay ngắt lời",I:"Nói nhiều, kể chuyện, năng lượng cao, hay đi lan man",S:"Ít nói, gật đầu, hỏi riêng sau meeting",C:"Hỏi câu chi tiết, challenge logic, ghi chép kỹ"}},
+  {id:3,title:"Khi không đồng ý",cat:"Giao tiếp & Tương tác",options:{D:"Nói thẳng ngay tại chỗ, đôi khi gay gắt",I:"Nói vòng vo, cười rồi lái sang hướng khác",S:"Không nói gì, nhưng sau đó làm theo cách mình",C:"Phản biện bằng data/logic, gửi email dài giải thích"}},
+  {id:4,title:"Cách hỏi khi chưa hiểu",cat:"Giao tiếp & Tương tác",options:{D:"Ít khi hỏi, tự tìm cách rồi tính",I:"Hỏi ngay, hỏi nhiều người, hỏi liên tục",S:"Ngại hỏi trước đám đông, inbox riêng hỏi sau",C:'Tự research trước, hỏi câu rất cụ thể kèm "em đã thử X rồi"'}},
+  {id:5,title:"Cách trình bày ý kiến",cat:"Giao tiếp & Tương tác",options:{D:"Ngắn, mạnh, kết luận trước — giải thích sau",I:"Kể câu chuyện, dẫn dắt cảm xúc, nói bằng ví dụ",S:'Nói nhẹ nhàng, hay bắt đầu bằng "em nghĩ là..."',C:"Trình bày có cấu trúc, có data, có so sánh các phương án"}},
+  {id:6,title:"Tốc độ phản hồi tin nhắn",cat:"Giao tiếp & Tương tác",options:{D:'Reply nhanh, ngắn: "Ok" / "Done" / "Sao?"',I:"Reply nhanh, dài, kèm sticker/emoji",S:"Reply chậm hơn, cẩn thận từng chữ",C:"Reply khi đã có đủ thông tin, đôi khi chậm vì đang verify"}},
+  {id:7,title:"Trong buổi brainstorm",cat:"Giao tiếp & Tương tác",options:{D:"Đưa 1-2 ý rồi muốn chốt luôn",I:"Tung rất nhiều ý, năng lượng dẫn dắt, ý sau phủ ý trước",S:"Lắng nghe, đóng góp khi được hỏi trực tiếp",C:"Ngồi nghe, ghi chép, sau buổi gửi tổng hợp + phân tích"}},
+  {id:8,title:"Khi nhận việc mới",cat:"Nhận việc & Xử lý công việc",options:{D:'"Ok, deadline lúc nào?"',I:'"Hay quá, kể thêm đi!"',S:'"Để em xem lại lịch đã..."',C:'"Anh gửi em brief chi tiết được không?"'}},
+  {id:9,title:"Cách tiếp cận task phức tạp",cat:"Nhận việc & Xử lý công việc",options:{D:"Chia nhỏ → delegate → push tiến độ",I:"Bắt đầu từ phần thú vị nhất, lo chi tiết sau",S:"Lên plan cẩn thận trước khi bắt đầu, từng bước",C:"Research kỹ → lập framework → mới bắt tay làm"}},
+  {id:10,title:"Khi task bị block",cat:"Nhận việc & Xử lý công việc",options:{D:"Tự quyết luôn, đôi khi vượt quyền",I:'Nhờ relationship để "mở đường", gọi điện liên tục',S:"Chờ đợi, nhắc nhẹ nhàng, ngại push",C:"Escalate bằng email có data, nêu rõ impact nếu chậm"}},
+  {id:11,title:"Cách quản lý thời gian",cat:"Nhận việc & Xử lý công việc",options:{D:"Ưu tiên việc quan trọng nhất, bỏ qua tiểu tiết",I:"Hay bị phân tán, nhảy giữa nhiều việc, multitask",S:"Làm tuần tự, ổn định, ít bị phân tán nhưng khó nói 'không'",C:"Lên lịch chi tiết, time-block, ghét bị interrupt"}},
+  {id:12,title:"Khi phải làm việc không thích",cat:"Nhận việc & Xử lý công việc",options:{D:"Làm nhanh cho xong để chuyển sang việc khác",I:"Trì hoãn, tìm cách biến nó thành vui hoặc nhờ người khác",S:"Vẫn làm vì trách nhiệm, nhưng mệt mỏi âm thầm",C:"Làm nhưng phàn nàn nếu thấy phi logic/lãng phí"}},
+  {id:13,title:"Cách xử lý khi làm sai",cat:"Nhận việc & Xử lý công việc",options:{D:"Nhận nhanh, sửa nhanh, không thích phân tích dài",I:"Xin lỗi nhiều, hứa sửa, nhưng đôi khi lặp lại",S:"Rất áy náy, tự trách lâu, cần được trấn an",C:"Phân tích nguyên nhân kỹ trước khi nhận, rút kinh nghiệm chi tiết"}},
+  {id:14,title:"Khi deadline bị dời/thay đổi",cat:"Nhận việc & Xử lý công việc",options:{D:"Khó chịu rõ, muốn biết lý do",I:'"Ok thôi, không sao" — linh hoạt theo',S:"Chấp nhận nhưng lo lắng âm thầm, sợ ảnh hưởng plan",C:"Cần biết timeline mới chính xác, update lại plan ngay"}},
+  {id:15,title:"Cách xây dựng quan hệ đồng nghiệp",cat:"Quan hệ & Teamwork",options:{D:"Respect qua kết quả, không cần thân thiết",I:"Thân với nhiều người, hay coffee chat, biết chuyện khắp cty",S:"Thân sâu với vài người, trung thành, ít mở rộng",C:"Giữ quan hệ professional, không quá thân nhưng đáng tin"}},
+  {id:16,title:"Khi đồng nghiệp nhờ giúp",cat:"Quan hệ & Teamwork",options:{D:"Giúp nhanh nếu hợp lý, từ chối thẳng nếu không",I:"Nhận hết, hứa hết, đôi khi quên hoặc làm không kịp",S:'Rất khó từ chối, hay nhận thêm việc vì ngại nói "không"',C:"Giúp nếu nằm trong scope, hỏi rõ yêu cầu trước khi nhận"}},
+  {id:17,title:"Trong team project",cat:"Quan hệ & Teamwork",options:{D:"Muốn lead, ra quyết định, chịu trách nhiệm kết quả",I:"Kết nối mọi người, tạo không khí, motivate team",S:"Người thực thi đáng tin cậy, bền bỉ, ít khi vắng mặt",C:"Lo phần chất lượng, review, đảm bảo không sai sót"}},
+  {id:18,title:"Khi có conflict trong team",cat:"Quan hệ & Teamwork",options:{D:"Muốn giải quyết nhanh, đôi khi áp đặt",I:"Làm trung gian hòa giải, muốn ai cũng vui",S:"Né tránh conflict, hy vọng tự hết, chịu đựng lâu",C:"Phân tích đúng sai rõ ràng, đưa ra giải pháp logic"}},
+  {id:19,title:"Khi mentor/training member mới",cat:"Quan hệ & Teamwork",options:{D:'Nói ngắn: "Làm thế này, tự tìm hiểu thêm"',I:"Kể rất nhiều story, chia sẻ hết kinh nghiệm",S:"Kiên nhẫn, hand-hold từng bước, sợ member áp lực",C:"Chuẩn bị tài liệu kỹ, có checklist, theo quy trình"}},
+  {id:20,title:"Khi bị áp lực cao",cat:"Phản ứng với áp lực & thay đổi",options:{D:"Đẩy nhanh hơn, quyết liệt hơn, kiểm soát nhiều hơn",I:"Né tránh, đùa cho qua, hoặc tìm người trút",S:'Im lặng, rút lui, làm mà "hồn không ở đó"',C:"Phân tích thêm, chậm lại, cầu toàn hơn bình thường"}},
+  {id:21,title:"Phản ứng với thay đổi đột ngột",cat:"Phản ứng với áp lực & thay đổi",options:{D:'"Ok, đổi thì đổi" — adapt nhanh',I:'"Hay, thử luôn đi!" — hào hứng',S:'Lo lắng, cần thời gian, hỏi "tại sao phải đổi?"',C:"Muốn hiểu full picture trước khi accept, challenge nếu thiếu logic"}},
+  {id:22,title:"Khi được khen",cat:"Phản ứng với áp lực & thay đổi",options:{D:'"Ok, rồi sao nữa?" — muốn biết next step',I:"Cười tươi, kể cho mọi người nghe",S:'"Cũng bình thường thôi" — ngại',C:'"Cảm ơn, nhưng phần X vẫn chưa tốt lắm"'}},
+  {id:23,title:"Khi bị phê bình",cat:"Phản ứng với áp lực & thay đổi",options:{D:"Phản ứng nhanh, có thể tranh luận lại ngay",I:"Tỏ ra ok nhưng bên trong buồn, cần thời gian hồi phục",S:"Im lặng, nhận hết, nhưng có thể mất tự tin lâu dài",C:"Chấp nhận nếu có data thuyết phục, phản biện nếu không fair"}},
+  {id:24,title:"Dấu hiệu sắp burn-out",cat:"Phản ứng với áp lực & thay đổi",options:{D:"Cáu gắt hơn, kiểm soát quá mức, micromanage",I:"Trầm hẳn, mất năng lượng, ít nói — khác hẳn bình thường",S:"Đi làm đều nhưng hiệu suất giảm dần, hay quên",C:"Hoài nghi mọi thứ, cầu toàn cực đoan, hoặc bỏ bê chất lượng"}},
+  {id:25,title:"Phong cách quản lý tự nhiên",cat:"Quản lý & Lãnh đạo",options:{D:"Chỉ huy, ra lệnh rõ ràng, push kết quả",I:"Truyền cảm hứng, tạo không khí, dẫn dắt bằng năng lượng",S:"Đồng hành, hỗ trợ, tạo môi trường an toàn",C:"Thiết lập quy trình, đặt chuẩn chất lượng, kiểm soát chi tiết"}},
+  {id:26,title:"Cách set mục tiêu cho team",cat:"Quản lý & Lãnh đạo",options:{D:'Mục tiêu lớn, thách thức, "phải đạt bằng được"',I:"Mục tiêu hào hứng, vision đẹp, nhưng đôi khi thiếu chi tiết",S:"Mục tiêu thực tế, an toàn, step-by-step",C:"Mục tiêu rõ ràng, đo lường được, có KPI chi tiết"}},
+  {id:27,title:"Khi member underperform",cat:"Quản lý & Lãnh đạo",options:{D:"Nói thẳng, đặt deadline cải thiện, nếu không thì thay",I:"Động viên, cho thêm cơ hội, đôi khi quá dễ dãi",S:"Nhẫn nại quá lâu, ngại nói thẳng, hy vọng tự tốt lên",C:"Phân tích root cause, đưa ra plan cải thiện chi tiết"}},
+  {id:28,title:"Cách ra quyết định",cat:"Quản lý & Lãnh đạo",options:{D:"Nhanh, dứt khoát, chấp nhận rủi ro",I:"Theo cảm xúc/intuition, hỏi ý kiến nhiều người",S:"Cân nhắc kỹ, hỏi ý kiến team, muốn consensus",C:"Phân tích data, so sánh options, chậm nhưng kỹ"}},
+  {id:29,title:"Điểm mù lớn nhất khi quản lý",cat:"Quản lý & Lãnh đạo",options:{D:"Thiếu kiên nhẫn với người chậm, gây áp lực quá mức",I:"Thiếu follow-up, hứa nhiều quên nhiều, né conflict",S:"Ngại đối đầu, chấp nhận hiện trạng quá lâu, khó push",C:"Cầu toàn quá mức, khó delegate, hay micromanage chất lượng"}},
+  {id:30,title:"Điều khiến team khó chịu nhất",cat:"Quản lý & Lãnh đạo",options:{D:"Áp lực liên tục, thiếu empathy, thay đổi nhanh quá",I:"Không nhất quán, meeting dài, thiếu cấu trúc",S:"Quá chậm ra quyết định, thiếu direction rõ ràng",C:"Quá chi tiết, thiếu linh hoạt, soi lỗi nhiều"}},
+  {id:31,title:"Cách gọi món ở nhà hàng",cat:"Giao tiếp & Xã hội",options:{D:"Quyết nhanh, không cần xem menu lâu, đôi khi gọi cho cả bàn",I:"Hỏi waiter gợi ý, thử món mới, gọi nhiều để share",S:"Gọi món quen thuộc, để người khác gọi trước",C:"Đọc menu kỹ, so sánh giá, hỏi thành phần chi tiết"}},
+  {id:32,title:"Trong group chat bạn bè",cat:"Giao tiếp & Xã hội",options:{D:"Ít chat, reply ngắn, chỉ xuất hiện khi có việc cần",I:"Hay gửi meme, reaction, tag người, khởi xướng topic",S:"Reply đều, thả tim, ít khi khởi xướng nhưng không bao giờ vắng",C:"Đọc hết nhưng ít reply, thỉnh thoảng gửi 1 link hay"}},
+  {id:33,title:"Khi đi chơi nhóm",cat:"Giao tiếp & Xã hội",options:{D:"Muốn plan rõ: đi đâu, mấy giờ, xong lúc nào",I:'"Đi đâu cũng được, miễn vui!" — tổ chức mini-games',S:"Theo nhóm, ai quyết gì cũng ok, miễn mọi người vui",C:"Muốn biết lịch trình trước, chuẩn bị đồ đạc kỹ"}},
+  {id:34,title:"Cách kể chuyện",cat:"Giao tiếp & Xã hội",options:{D:"Ngắn, đi thẳng vào point, skip chi tiết",I:"Kể dài, thêm chi tiết drama, diễn xuất, muốn người nghe wow",S:'Kể nhẹ nhàng, hay hỏi "rồi bạn thì sao?"',C:'Kể chronological, chính xác, hay nói "chính xác là ngày..."'}},
+  {id:35,title:"Khi ai đó kể chuyện buồn",cat:"Giao tiếp & Xã hội",options:{D:'"Rồi giờ bạn định làm gì?" — tìm giải pháp',I:"Ôm, an ủi, kể chuyện tương tự của mình, đồng cảm",S:"Lắng nghe im lặng, ở bên cạnh, không vội khuyên",C:'"Bạn đã thử X chưa?" — phân tích và đưa lời khuyên logic'}},
+  {id:36,title:"Cách sử dụng mạng xã hội",cat:"Giao tiếp & Xã hội",options:{D:"Ít đăng, đăng thì về thành tích/kết quả",I:"Đăng nhiều, story, check-in, tương tác mạnh",S:"Ít đăng, hay like/comment bài người khác",C:"Đăng bài có giá trị: sách, kiến thức, ít chia sẻ cá nhân"}},
+  {id:37,title:"Cách mua sắm",cat:"Mua sắm & Ra quyết định",options:{D:"Vào, chọn nhanh, mua, đi — ghét lòng vòng",I:'Thích shopping, thử nhiều, mua vì "thấy đẹp quá"',S:"Mua đồ quen thuộc, ít thay đổi brand, cần ai đi cùng",C:"So sánh giá, đọc review, research kỹ trước khi mua"}},
+  {id:38,title:"Khi chọn nhà hàng mới",cat:"Mua sắm & Ra quyết định",options:{D:"Search nhanh, chọn top 1 rating, book luôn",I:"Hỏi bạn bè gợi ý, chọn chỗ đẹp/trendy",S:'"Chỗ quen thuộc thôi, khỏi phải thử"',C:"Đọc review chi tiết, xem menu trước, check giá"}},
+  {id:39,title:"Cách tiêu tiền",cat:"Mua sắm & Ra quyết định",options:{D:"Chi mạnh cho thứ mình muốn, ít so sánh giá",I:"Dễ chi tiêu cảm xúc, mua vì vui, rủ bạn mua theo",S:"Chi tiêu ổn định, tiết kiệm, ít mua đồ bất ngờ",C:"Có budget rõ ràng, track chi tiêu, ghét lãng phí"}},
+  {id:40,title:"Không gian sống",cat:"Thói quen & Lối sống",options:{D:"Gọn, tối giản, hiệu quả, ít decor",I:'Nhiều màu sắc, đồ decor, ảnh bạn bè, không gian "vui"',S:"Ấm cúng, sạch sẽ, có góc quen thuộc, ít thay đổi",C:"Ngăn nắp, có hệ thống, sách xếp theo thể loại"}},
+  {id:41,title:"Lái xe / đi đường",cat:"Thói quen & Lối sống",options:{D:"Đi nhanh, hay vượt, ghét kẹt xe, chọn đường ngắn nhất",I:"Vừa lái vừa nghe nhạc, gọi điện, hay rẽ thăm bạn",S:"Đi đúng tốc độ, đúng lane, ít đổi đường",C:"Tuân thủ giao thông, mở GPS dù đã biết đường"}},
+  {id:42,title:"Cách tập thể dục",cat:"Thói quen & Lối sống",options:{D:"Môn cường độ cao: gym nặng, chạy nhanh, boxing",I:"Môn nhóm: dance, team sport, đi gym cùng bạn",S:"Môn nhẹ nhàng: yoga, đi bộ, bơi lội đều đặn",C:"Theo program cụ thể, track data, đo chỉ số"}},
+  {id:43,title:"Khi xem phim",cat:"Thói quen & Lối sống",options:{D:"Chọn nhanh, thích action/thriller, skip phần chậm",I:"Xem gì cũng được miễn vui, hay recommend cho bạn",S:"Xem lại phim cũ yêu thích, thích drama/romance",C:"Chọn theo rating, thích documentary/sci-fi, phân tích plot"}},
+  {id:44,title:"Thói quen buổi sáng",cat:"Thói quen & Lối sống",options:{D:"Dậy sớm, routine nhanh, bắt đầu ngay việc quan trọng",I:"Snooze alarm, check phone, lướt MXH",S:"Routine cố định, cùng giờ, cùng thứ tự mỗi ngày",C:"Dậy đúng giờ, theo schedule, chuẩn bị từ tối trước"}},
+  {id:45,title:"Khi đồ hư/hỏng trong nhà",cat:"Khi gặp vấn đề trong cuộc sống",options:{D:"Tự sửa hoặc gọi thợ ngay, xong nhanh cho rồi",I:"Nhờ bạn bè, hỏi group Facebook, biến thành chuyện để kể",S:"Lo lắng, hỏi ý kiến nhiều người trước khi quyết",C:"Google hướng dẫn, xem video, mua đúng tool rồi mới sửa"}},
+  {id:46,title:"Khi phải chờ đợi",cat:"Khi gặp vấn đề trong cuộc sống",options:{D:"Rất khó chịu, tìm cách khác, ghét phí thời gian",I:"Lướt phone, chat, gọi điện, biến thời gian chờ thành social",S:"Kiên nhẫn chờ, nghe nhạc, không phàn nàn",C:"Tính toán lại lịch trình, mở app xem có đường khác không"}},
+  {id:47,title:"Cách lên plan đi du lịch",cat:"Khi gặp vấn đề trong cuộc sống",options:{D:"Chọn điểm đến nhanh, book nhanh, chi tiết tính sau",I:'Rủ nhiều người, idea nhiều, thay đổi plan liên tục, "đi rồi tính"',S:"Thích đi cùng người quen, theo tour hoặc plan sẵn",C:"Lên itinerary chi tiết từng giờ, book trước hết, budget rõ"}},
+  {id:48,title:"Khi ai đó đến muộn",cat:"Khi gặp vấn đề trong cuộc sống",options:{D:"Khó chịu rõ ràng, nhắc thẳng",I:'"Không sao, vào đi!" — dễ bỏ qua',S:"Im lặng chờ, không nói gì nhưng hơi buồn",C:"Ghi nhớ, lần sau sẽ tính thêm buffer time"}},
+  {id:49,title:"Cách nghỉ ngơi cuối tuần",cat:"Khi gặp vấn đề trong cuộc sống",options:{D:"Làm gì đó productive: side project, đọc sách, sắp xếp",I:"Đi chơi, gặp bạn, event, party — ghét ở nhà 1 mình",S:"Ở nhà, nấu ăn, xem phim, thời gian yên tĩnh với gia đình",C:"Có plan cụ thể: sáng đọc sách, chiều cafe, tối xem phim X"}},
+  {id:50,title:"Nếu chỉ dùng 1 từ để mô tả",cat:"Tổng kết",options:{D:"HIỆU QUẢ",I:"VUI VẺ",S:"ỔN ĐỊNH",C:"CHÍNH XÁC"}},
+];
+
+const CATS = [...new Set(QUESTIONS.map(q=>q.cat))];
+let answers = {}, activeCat = 0, expandedQ = null;
+
+function showHome(){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById('page-home').classList.add('active');window.scrollTo(0,0);}
+function showLearn(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page-learn').classList.add('active');
+  renderLearn(id); window.scrollTo(0,0);
+}
+function showQuiz(){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page-quiz').classList.add('active');
+  activeCat=0; renderQuizTabs(); renderQuizQuestions(); updateQuizProgress(); window.scrollTo(0,0);
+}
+function showResult(){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page-result').classList.add('active');
+  renderResult(); window.scrollTo(0,0);
+}
+function resetQuiz(){answers={};activeCat=0;expandedQ=null;showQuiz();}
+
+function renderLearn(id){
+  const t = KNOWLEDGE[id];
+  if(!t) return;
+  let h = `<h2 style="margin-bottom:20px">${t.title}</h2>`;
+  t.sections.forEach(sec=>{
+    h += `<p class="section-label">${sec.heading}</p>`;
+    sec.items.forEach(item=>{
+      const cls = item.disc.toLowerCase();
+      h += `<div class="disc-item ${cls}-bg">
+        <div class="disc-item-header">
+          <span class="badge badge-${cls}">${item.disc}</span>
+          <span class="${cls}-color" style="font-weight:600;font-size:13px">${DISC_LABEL[item.disc]}</span>
+          ${'symbol' in item ? `<span style="font-size:12px;color:#9ca3af;margin-left:auto">${item.symbol}</span>` : ''}
+        </div>
+        ${'keywords' in item ? `<p style="font-size:13px;font-weight:600;color:${DISC_COLORS[item.disc]};margin-bottom:4px">${item.keywords}</p>` : ''}
+        ${'quote' in item ? `<p style="font-size:13px;color:#6b7280;font-style:italic;margin:0">${item.quote}</p>` : ''}
+        ${'detail' in item ? `<p class="disc-item-body">${item.detail.replace(/\n/g,'<br>')}</p>` : ''}
+      </div>`;
+    });
+  });
+  document.getElementById('learn-content').innerHTML = h;
+}
+
+function renderQuizTabs(){
+  const tabs = document.getElementById('quiz-tabs');
+  tabs.innerHTML = CATS.map((cat,i)=>{
+    const qs = QUESTIONS.filter(q=>q.cat===cat);
+    const ans = qs.filter(q=>answers[q.id]).length;
+    const done = ans===qs.length;
+    return `<button class="tab ${i===activeCat?'active':''}" onclick="switchCat(${i})">${cat} ${done?'✓':ans>0?`(${ans}/${qs.length})`:''}</button>`;
+  }).join('');
+}
+
+function renderQuizQuestions(){
+  const qs = QUESTIONS.filter(q=>q.cat===CATS[activeCat]);
+  const container = document.getElementById('quiz-questions');
+  container.innerHTML = qs.map(q=>{
+    const ans = answers[q.id];
+    const expanded = expandedQ===q.id;
+    return `<div class="acc-item ${ans?'answered':''}" id="acc-${q.id}">
+      <div class="acc-header" onclick="toggleQ(${q.id})">
+        <span style="width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;background:${ans?'#DCFCE7':'#f3f4f6'};color:${ans?'#16A34A':'#9ca3af'};font-weight:600;font-size:12px;flex-shrink:0">${ans?'✓':q.id}</span>
+        <span style="flex:1;font-size:14px;font-weight:${ans?400:500}">${q.title}</span>
+        ${ans?`<span class="answered-badge" style="background:${DISC_COLORS[ans]}20;color:${DISC_COLORS[ans]}">${ans}</span>`:''}
+        <span class="chevron">${expanded?'▲':'▼'}</span>
+      </div>
+      ${expanded ? `<div class="acc-body">${renderOptions(q)}</div>` : ''}
+    </div>`;
+  }).join('');
+  const prev = document.getElementById('btn-prev');
+  const next = document.getElementById('btn-next');
+  prev.disabled = activeCat===0; prev.style.opacity = activeCat===0?'0.4':'1';
+  if(activeCat===CATS.length-1){
+    const total = Object.values(answers).filter(Boolean).length;
+    const allDone = total===50;
+    next.textContent = allDone ? 'Xem kết quả →' : `Còn ${50-total} câu`;
+    next.style.background = allDone?'#16A34A':'#9ca3af';
+    next.onclick = allDone ? showResult : null;
+  } else {
+    next.textContent = 'Tiếp →';
+    next.style.background = '#1D4ED8';
+    next.onclick = quizNext;
+  }
+}
+
+function renderOptions(q){
+  return ['D','I','S','C'].map(disc=>{
+    const sel = answers[q.id]===disc;
+    const cl = sel ? `selected-${disc.toLowerCase()}` : '';
+    const badgeCl = sel ? `sel sel-${disc.toLowerCase()}` : '';
+    return `<div class="quiz-opt ${cl}" onclick="selectAnswer(${q.id},'${disc}')">
+      <span class="opt-badge ${badgeCl}">${disc}</span>
+      <span style="font-size:13px;line-height:1.6;flex:1">${q.options[disc]}</span>
+    </div>`;
+  }).join('') + (answers[q.id] ? `<div style="padding:10px 13px;border-radius:10px;margin-top:4px;background:${DISC_COLORS[answers[q.id]]}15;border:1px solid ${DISC_COLORS[answers[q.id]]}40;font-size:13px;color:${DISC_COLORS[answers[q.id]]};font-weight:600">
+    ${DISC_ICON[answers[q.id]]} Bạn chọn: ${answers[q.id]} — ${DISC_LABEL[answers[q.id]]} <span style="font-weight:400;color:#6b7280">· ${DISC_DESC[answers[q.id]]}</span>
+  </div>` : '');
+}
+
+function selectAnswer(qId, disc){
+  if(answers[qId]===disc) delete answers[qId]; else answers[qId]=disc;
+  updateQuizProgress();
+  const q = QUESTIONS.find(q=>q.id===qId);
+  const item = document.getElementById(`acc-${qId}`);
+  if(item){
+    item.className = `acc-item ${answers[qId]?'answered':''}`;
+    const header = item.querySelector('.acc-header');
+    const badge = item.querySelector('.answered-badge');
+    const numSpan = header.querySelector('span:first-child');
+    numSpan.style.background = answers[qId]?'#DCFCE7':'#f3f4f6';
+    numSpan.style.color = answers[qId]?'#16A34A':'#9ca3af';
+    numSpan.textContent = answers[qId]?'✓':qId;
+    if(answers[qId]){
+      if(!badge){
+        const b = document.createElement('span');
+        b.className='answered-badge'; b.style.background=`${DISC_COLORS[answers[qId]]}20`; b.style.color=DISC_COLORS[answers[qId]]; b.textContent=answers[qId];
+        header.insertBefore(b, header.querySelector('.chevron'));
+      } else {badge.style.background=`${DISC_COLORS[answers[qId]]}20`;badge.style.color=DISC_COLORS[answers[qId]];badge.textContent=answers[qId];}
+    } else if(badge) badge.remove();
+    const body = item.querySelector('.acc-body');
+    if(body) body.innerHTML = renderOptions(q);
+  }
+  renderQuizTabs();
+  const total = Object.values(answers).filter(Boolean).length;
+  if(activeCat===CATS.length-1){
+    const next = document.getElementById('btn-next');
+    const allDone = total===50;
+    next.textContent = allDone?'Xem kết quả →':`Còn ${50-total} câu`;
+    next.style.background = allDone?'#16A34A':'#9ca3af';
+    next.onclick = allDone?showResult:null;
+  }
+}
+
+function toggleQ(id){
+  expandedQ = expandedQ===id ? null : id;
+  renderQuizQuestions();
+}
+
+function switchCat(i){activeCat=i;expandedQ=null;renderQuizTabs();renderQuizQuestions();window.scrollTo(0,0);}
+function quizNext(){if(activeCat<CATS.length-1){activeCat++;expandedQ=null;renderQuizTabs();renderQuizQuestions();window.scrollTo(0,0);}}
+function quizPrev(){if(activeCat>0){activeCat--;expandedQ=null;renderQuizTabs();renderQuizQuestions();window.scrollTo(0,0);}}
+
+function updateQuizProgress(){
+  const total = Object.values(answers).filter(Boolean).length;
+  document.getElementById('quiz-progress-text').textContent=`${total}/50`;
+  document.getElementById('quiz-progress-bar').style.width=`${(total/50)*100}%`;
+}
+
+function renderResult(){
+  const total = Object.values(answers).filter(Boolean).length;
+  document.getElementById('result-emoji').textContent = total>=45?'🏆':total>=30?'🌟':'📚';
+  document.getElementById('result-score').textContent = total;
+  const catScores = {};
+  CATS.forEach(c=>{catScores[c]={total:0,answered:0};});
+  QUESTIONS.forEach(q=>{catScores[q.cat].total++;if(answers[q.id])catScores[q.cat].answered++;});
+  document.getElementById('result-cats').innerHTML = CATS.map(cat=>{
+    const s=catScores[cat]; const pct=Math.round((s.answered/s.total)*100);
+    return `<div class="card" style="margin-bottom:8px">
+      <div style="display:flex;justify-content:space-between;margin-bottom:8px">
+        <span style="font-size:13px;font-weight:500">${cat}</span>
+        <span style="font-size:13px;color:${pct===100?'#16A34A':'#6b7280'}">${s.answered}/${s.total}</span>
+      </div>
+      <div class="progress-bar"><div class="progress-fill" style="width:${pct}%;background:${pct===100?'#16A34A':'#1D4ED8'}"></div></div>
+    </div>`;
+  }).join('');
+}
+</script>
+</body>
+</html>
