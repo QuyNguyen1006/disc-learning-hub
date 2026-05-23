@@ -7,7 +7,7 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f8f9fa;color:#1a1a1a;font-size:14px;line-height:1.6}
-.app{max-width:680px;margin:0 auto;padding:16px;min-height:100vh}
+.app{max-width:1200px;margin:0 auto;padding:16px 20px;min-height:100vh}
 h1{font-size:22px;font-weight:600}
 h2{font-size:18px;font-weight:600}
 h3{font-size:15px;font-weight:600}
@@ -54,9 +54,10 @@ button{font-family:inherit;cursor:pointer}
 .opt-badge{width:26px;height:26px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:12px;flex-shrink:0;background:#f3f4f6;color:#6b7280}
 .opt-badge.sel{color:#fff}
 .opt-badge.sel-d{background:#E53935}.opt-badge.sel-i{background:#F59E0B}.opt-badge.sel-s{background:#16A34A}.opt-badge.sel-c{background:#1D4ED8}
+.quiz-options-grid{display:grid;grid-template-columns:1fr;gap:7px}
 
 /* Tabs */
-.tabs{display:flex;overflow-x:auto;gap:6px;margin-bottom:20px;padding-bottom:4px;scrollbar-width:none}
+.tabs{display:flex;overflow-x:auto;gap:6px;margin-bottom:20px;padding-bottom:4px;scrollbar-width:none;flex-wrap:wrap}
 .tabs::-webkit-scrollbar{display:none}
 .tab{padding:7px 12px;border-radius:8px;border:1px solid #e5e7eb;background:#fff;font-size:12px;white-space:nowrap;cursor:pointer;transition:all .15s}
 .tab.active{background:#1D4ED8;color:#fff;border-color:#1D4ED8}
@@ -70,13 +71,13 @@ button{font-family:inherit;cursor:pointer}
 
 /* Nav bar */
 .nav-row{display:flex;gap:8px;margin-top:16px}
-.home-topics{display:flex;flex-direction:column;gap:8px;margin-bottom:24px}
-.home-topic-btn{display:flex;align-items:center;gap:12px;padding:12px 16px;border-radius:10px;border:1px solid #e5e7eb;background:#fff;cursor:pointer;text-align:left;width:100%;font-size:14px;font-weight:500;transition:background .15s}
-.home-topic-btn:hover{background:#f9fafb}
+.home-topics{display:grid;grid-template-columns:1fr;gap:8px;margin-bottom:24px}
+.home-topic-btn{display:flex;align-items:center;gap:12px;padding:12px 16px;border-radius:10px;border:1px solid #e5e7eb;background:#fff;cursor:pointer;text-align:left;width:100%;font-size:14px;font-weight:500;transition:all .15s}
+.home-topic-btn:hover{background:#f9fafb;border-color:#d1d5db;transform:translateY(-1px);box-shadow:0 2px 8px rgba(0,0,0,.06)}
 .home-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:24px}
 .home-disc-card{padding:14px 16px;border-radius:12px}
 
-.section-label{font-size:12px;font-weight:600;color:#9ca3af;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px}
+.section-label{font-size:12px;font-weight:600;color:#9ca3af;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px;margin-top:20px}
 .result-box{text-align:center;padding:32px 20px;border-radius:16px;border:1px solid #e5e7eb;background:#f9fafb;margin-bottom:20px}
 
 .legend{margin-top:20px;padding:14px 16px;border-radius:12px;border:1px solid #e5e7eb;background:#f9fafb}
@@ -86,7 +87,74 @@ button{font-family:inherit;cursor:pointer}
 .chevron{font-size:12px;color:#9ca3af;margin-left:auto}
 .answered-badge{padding:2px 8px;border-radius:6px;font-size:11px;font-weight:600;margin-left:4px}
 
+/* Table */
+.disc-table-wrap{overflow-x:auto;margin-bottom:16px;-webkit-overflow-scrolling:touch;border:1px solid #e5e7eb;border-radius:12px}
+.disc-table{width:100%;border-collapse:collapse;font-size:12px;min-width:500px}
+.disc-table th{padding:10px 8px;text-align:center;font-weight:700;font-size:13px;border-bottom:2px solid #e5e7eb;background:#f9fafb}
+.disc-table td{padding:10px 8px;vertical-align:top;border-bottom:1px solid #f3f4f6;line-height:1.6;font-size:12px}
+.disc-table tr:last-child td{border-bottom:none}
+.disc-table th:nth-child(1){background:#FEF2F2;color:#E53935;border-right:1px solid #f3f4f6}
+.disc-table th:nth-child(2){background:#FFFBEB;color:#F59E0B;border-right:1px solid #f3f4f6}
+.disc-table th:nth-child(3){background:#F0FDF4;color:#16A34A;border-right:1px solid #f3f4f6}
+.disc-table th:nth-child(4){background:#EFF6FF;color:#1D4ED8}
+.disc-table td{border-right:1px solid #f3f4f6}
+.disc-table td:last-child{border-right:none}
+.quiz-correct{border:2px solid #16A34A!important;background:#F0FDF4!important}
+.quiz-wrong{border:2px solid #E53935!important;background:#FEF2F2!important}
+.acc-item.wrong-answer{border-color:#FECACA}
+
+/* Quiz questions grid for larger screens */
+.quiz-grid{display:grid;grid-template-columns:1fr;gap:8px}
+/* Result categories grid */
+.result-grid{display:grid;grid-template-columns:1fr;gap:8px}
+
 .page{display:none}.page.active{display:block}
+
+/* ========== RESPONSIVE ========== */
+/* Tablet: 600px+ */
+@media(min-width:600px){
+  .app{padding:24px 32px}
+  h1{font-size:26px}
+  h2{font-size:22px}
+  .home-grid{grid-template-columns:repeat(4,1fr);gap:12px}
+  .home-topics{grid-template-columns:repeat(2,1fr);gap:10px}
+  .home-disc-card{padding:18px 20px}
+  .legend-grid{grid-template-columns:repeat(4,1fr)}
+  .disc-table{min-width:auto;font-size:13px}
+  .disc-table th{padding:12px 10px;font-size:14px}
+  .disc-table td{padding:12px 10px;font-size:13px}
+  .quiz-options-grid{grid-template-columns:repeat(2,1fr)}
+  .quiz-grid{grid-template-columns:repeat(2,1fr)}
+  .result-grid{grid-template-columns:repeat(2,1fr)}
+  .acc-header{padding:14px 18px}
+  .acc-body{padding:0 18px 18px}
+  .section-label{font-size:13px}
+  .result-box{padding:40px 32px}
+}
+
+/* Desktop: 900px+ */
+@media(min-width:900px){
+  .app{padding:32px 48px}
+  h1{font-size:30px}
+  h2{font-size:24px}
+  .home-topics{grid-template-columns:repeat(3,1fr);gap:12px}
+  .home-topic-btn{padding:16px 20px;font-size:15px;border-radius:12px}
+  .disc-table th{padding:14px 12px;font-size:15px}
+  .disc-table td{padding:14px 12px;font-size:14px;line-height:1.7}
+  .quiz-grid{grid-template-columns:repeat(2,1fr);gap:12px}
+  .result-grid{grid-template-columns:repeat(2,1fr);gap:12px}
+  .tab{padding:8px 16px;font-size:13px}
+  .btn{padding:12px 20px;font-size:15px}
+  .btn-primary{font-size:15px}
+  .card{padding:18px 22px}
+}
+
+/* Large Desktop: 1100px+ */
+@media(min-width:1100px){
+  .home-topics{grid-template-columns:repeat(5,1fr)}
+  .quiz-grid{grid-template-columns:repeat(3,1fr)}
+  .result-grid{grid-template-columns:repeat(3,1fr)}
+}
 </style>
 </head>
 <body>
@@ -156,10 +224,22 @@ button{font-family:inherit;cursor:pointer}
     <button class="home-topic-btn" onclick="showLearn('stress')">
       <span>🔥</span><span style="flex:1">Phản ứng với áp lực & stress</span><span style="color:#9ca3af">›</span>
     </button>
+    <button class="home-topic-btn" onclick="showLearn('portrait')">
+      <span>🎭</span><span style="flex:1">Chi tiết chân dung 4 nhóm</span><span style="color:#9ca3af">›</span>
+    </button>
+    <button class="home-topic-btn" onclick="showLearn('weakness_fix')">
+      <span>🔧</span><span style="flex:1">Khắc phục điểm yếu</span><span style="color:#9ca3af">›</span>
+    </button>
+    <button class="home-topic-btn" onclick="showLearn('playbook')">
+      <span>📋</span><span style="flex:1">Playbook quản lý hàng ngày</span><span style="color:#9ca3af">›</span>
+    </button>
+    <button class="home-topic-btn" onclick="showLearn('context_strengths')">
+      <span>🎯</span><span style="flex:1">Điểm mạnh/yếu theo ngữ cảnh</span><span style="color:#9ca3af">›</span>
+    </button>
   </div>
 
-  <button class="btn btn-primary" style="width:100%;padding:14px;font-size:15px;border-radius:12px" onclick="showQuiz()">
-    🧠 Bắt đầu ôn tập — 50 câu quiz
+  <button class="btn btn-primary" style="width:100%;max-width:480px;padding:14px;font-size:15px;border-radius:12px;margin:0 auto;display:block" onclick="showQuiz()">
+    🧠 Bắt đầu ôn tập — 90 câu quiz
   </button>
 </div>
 
@@ -175,8 +255,8 @@ button{font-family:inherit;cursor:pointer}
     <button class="btn-back" style="margin:0" onclick="showHome()">←</button>
     <div style="flex:1">
       <div style="display:flex;justify-content:space-between;margin-bottom:4px">
-        <span style="font-size:13px;font-weight:600">Quiz 50 câu</span>
-        <span id="quiz-progress-text" style="font-size:13px;color:#6b7280">0/50</span>
+        <span style="font-size:13px;font-weight:600" id="quiz-title">Quiz</span>
+        <span id="quiz-progress-text" style="font-size:13px;color:#6b7280">0/90</span>
       </div>
       <div class="progress-bar">
         <div id="quiz-progress-bar" class="progress-fill" style="width:0%;background:linear-gradient(90deg,#E53935,#F59E0B,#16A34A,#1D4ED8)"></div>
@@ -185,7 +265,7 @@ button{font-family:inherit;cursor:pointer}
   </div>
 
   <div class="tabs" id="quiz-tabs"></div>
-  <div id="quiz-questions"></div>
+  <div class="quiz-grid" id="quiz-questions"></div>
 
   <div class="nav-row">
     <button id="btn-prev" class="btn" onclick="quizPrev()" style="padding:11px 16px">← Trước</button>
@@ -208,10 +288,10 @@ button{font-family:inherit;cursor:pointer}
   <div class="result-box">
     <div id="result-emoji" style="font-size:48px;margin-bottom:8px">🏆</div>
     <div id="result-score" style="font-size:48px;font-weight:700">50</div>
-    <div style="color:#6b7280;font-size:14px">/ 50 câu đã trả lời</div>
+    <div style="color:#6b7280;font-size:14px">câu đúng</div>
   </div>
   <p class="section-label">Tiến độ theo chủ đề</p>
-  <div id="result-cats" style="margin-bottom:20px"></div>
+  <div id="result-cats" class="result-grid" style="margin-bottom:20px"></div>
   <div style="padding:12px 14px;border-radius:10px;background:#f9fafb;border:1px solid #e5e7eb;font-size:13px;color:#6b7280;line-height:1.6;margin-bottom:16px">
     Lưu ý: Đây là bài ôn tập nhận diện hành vi, không có đúng/sai tuyệt đối. Mỗi câu hỏi có 4 đáp án — mỗi đáp án ứng với 1 nhóm DISC.
   </div>
@@ -344,6 +424,191 @@ const KNOWLEDGE = {
     ]},
   ]},
 };
+const KNOWLEDGE_EXTRA = {
+  portrait:{title:"Chi tiết chân dung 4 nhóm",sections:[
+    {heading:"Thích điều gì",items:[
+      {disc:"D",detail:"Quyền kiểm soát · Thử thách mới · Kết quả rõ ràng · Tốc độ nhanh · Được tự quyết định"},
+      {disc:"I",detail:"Sự công nhận · Giao tiếp, kết nối · Không khí vui vẻ · Tự do sáng tạo · Được chú ý, tỏa sáng"},
+      {disc:"S",detail:"Sự ổn định · Môi trường hài hòa · Quan hệ sâu, chân thành · Được tin tưởng · Biết trước kế hoạch"},
+      {disc:"C",detail:"Sự chính xác · Logic rõ ràng · Thời gian để làm kỹ · Quy trình chuẩn · Được tôn trọng chuyên môn"},
+    ]},
+    {heading:"Sợ điều gì",items:[
+      {disc:"D",detail:"Mất quyền kiểm soát · Bị lợi dụng · Thất bại trước mặt người khác · Bị coi là yếu đuối · Phụ thuộc vào người khác"},
+      {disc:"I",detail:"Bị từ chối, bỏ quên · Mất kết nối xã hội · Không được công nhận · Môi trường nhàm chán · Bị cô lập"},
+      {disc:"S",detail:"Thay đổi đột ngột · Mâu thuẫn, xung đột · Mất sự ổn định · Bị gấp rút, áp lực thời gian · Mất mối quan hệ thân thiết"},
+      {disc:"C",detail:"Bị phê bình vô căn cứ · Sai sót do vội vàng · Quyết định cảm tính · Mất kiểm soát chất lượng · Thiếu thông tin khi phải quyết"},
+    ]},
+    {heading:"Điều khiến họ có cảm hứng",items:[
+      {disc:"D",detail:"Mục tiêu thách thức · Được giao quyền · Thấy kết quả nhanh · Cạnh tranh lành mạnh · Khám phá lãnh thổ mới"},
+      {disc:"I",detail:"Được chia sẻ ý tưởng · Môi trường sáng tạo · Làm việc với người vui · Được lên sân khấu · Thấy người khác hạnh phúc"},
+      {disc:"S",detail:"Môi trường an toàn, tin tưởng · Biết mình đóng góp có ý nghĩa · Quan hệ team tốt · Được đồng hành, không bị bỏ lại · Công việc có ý nghĩa dài hạn"},
+      {disc:"C",detail:"Bài toán phức tạp cần phân tích · Được tự chủ về chất lượng · Data đầy đủ để ra quyết định · Thấy hệ thống vận hành trơn tru · Được tôn trọng chuyên môn sâu"},
+    ]},
+    {heading:"Điều khiến họ tụt động lực",items:[
+      {disc:"D",detail:"Bị micromanage · Thiếu quyền tự quyết · Họp dài vô ích · Làm việc với người chậm, thiếu cam kết · Không thấy kết quả"},
+      {disc:"I",detail:"Bị phớt lờ, không ai lắng nghe · Môi trường quá nghiêm túc · Làm việc một mình quá lâu · Bị chỉ trích trước đám đông · Công việc lặp lại nhàm chán"},
+      {disc:"S",detail:"Thay đổi liên tục không lý do · Mâu thuẫn kéo dài · Bị gấp rút, áp lực không cần thiết · Không được quan tâm · Nỗ lực không được ghi nhận"},
+      {disc:"C",detail:"Quyết định vội vàng thiếu logic · Tiêu chuẩn thấp, chất lượng kém · Không có đủ thời gian/thông tin · Bị ép làm qua loa · Feedback chung chung, không cụ thể"},
+    ]},
+    {heading:"Cách thực hiện công việc",items:[
+      {disc:"D",detail:"Nhanh, dứt khoát, tập trung kết quả. Chia nhỏ → delegate → push. Ít quan tâm chi tiết, chỉ cần outcome"},
+      {disc:"I",detail:"Bắt đầu từ phần hào hứng nhất, sáng tạo, linh hoạt. Hay nhảy giữa nhiều việc. Chi tiết để tính sau"},
+      {disc:"S",detail:"Tuần tự, cẩn thận, từng bước. Cần brief rõ ràng. Bền bỉ, ít bỏ dở. Khó multitask nhưng quality ổn"},
+      {disc:"C",detail:"Research kỹ → lập plan → thực hiện có hệ thống. Chậm bắt đầu nhưng output chất lượng cao, ít sai sót"},
+    ]},
+    {heading:"Cách ra quyết định",items:[
+      {disc:"D",detail:"Nhanh, dứt khoát, dựa trên trực giác + kinh nghiệm. Chấp nhận rủi ro. \"Quyết rồi tính\""},
+      {disc:"I",detail:"Dựa trên cảm xúc, intuition, ý kiến người tin tưởng. Nhanh nhưng đôi khi thiếu phân tích"},
+      {disc:"S",detail:"Chậm, cần thời gian cân nhắc, hỏi ý kiến nhiều người, muốn đồng thuận. Né quyết định một mình"},
+      {disc:"C",detail:"Dựa trên data, phân tích kỹ, so sánh options. Chậm nhưng có logic rõ ràng. Khó quyết khi thiếu thông tin"},
+    ]},
+    {heading:"Phong cách học hỏi",items:[
+      {disc:"D",detail:"Học qua thực chiến, thử rồi rút. Không thích ngồi nghe giảng dài. Muốn case thật, áp dụng luôn"},
+      {disc:"I",detail:"Học qua tương tác, thảo luận, game. Cần không khí vui. Ghét đọc tài liệu dài"},
+      {disc:"S",detail:"Học qua quan sát, mentoring 1:1, từ từ. Cần môi trường an toàn để hỏi. Không thích bị gọi đột ngột"},
+      {disc:"C",detail:"Học qua nghiên cứu, đọc, phân tích. Thích tài liệu chi tiết. Cần thời gian tiêu hóa kiến thức"},
+    ]},
+    {heading:"Họ thích làm việc với ai",items:[
+      {disc:"D",detail:"Người nhanh, cam kết, nói ít làm nhiều.\\nGhét: người chậm, thiếu trách nhiệm, hay than phiền"},
+      {disc:"I",detail:"Người vui, cởi mở, năng lượng cao.\\nGhét: người quá nghiêm túc, bi quan, khó tính"},
+      {disc:"S",detail:"Người chân thành, kiên nhẫn, đáng tin.\\nGhét: người hay thay đổi, thiếu nhất quán, áp lực quá"},
+      {disc:"C",detail:"Người logic, chuyên nghiệp, có năng lực.\\nGhét: người làm qua loa, thiếu chuẩn bị, quyết định bừa"},
+    ]},
+    {heading:"Cách xây dựng quan hệ",items:[
+      {disc:"D",detail:"Dựa trên respect & kết quả. Không cần thân nhưng cần tin tưởng năng lực"},
+      {disc:"I",detail:"Dựa trên kết nối cảm xúc. Thân nhanh, mạng lưới rộng, nhưng không phải đều sâu"},
+      {disc:"S",detail:"Dựa trên sự tin tưởng & thời gian. Chậm nhưng sâu, ít bạn nhưng rất loyal"},
+      {disc:"C",detail:"Dựa trên sự tôn trọng chuyên môn. Professional, đáng tin, nhưng cần thời gian để mở lòng"},
+    ]},
+    {heading:"Điều họ cần từ Manager",items:[
+      {disc:"D",detail:"Giao mục tiêu rõ, cho quyền tự quyết · Đừng micromanage · Thẳng thắn, đừng vòng vo · Ghi nhận bằng kết quả"},
+      {disc:"I",detail:"Công nhận, khen trước mặt người khác · Cho cơ hội sáng tạo · Lắng nghe ý tưởng · Đừng quá nghiêm túc"},
+      {disc:"S",detail:"Quan tâm cá nhân, hỏi thăm · Cho thời gian thích nghi · Giải thích lý do khi thay đổi · Tạo môi trường an toàn"},
+      {disc:"C",detail:"Cung cấp đủ thông tin/data · Tôn trọng chuyên môn · Cho thời gian làm kỹ · Feedback cụ thể, có logic"},
+    ]},
+    {heading:"Cách xử lý conflict",items:[
+      {disc:"D",detail:"Đối đầu thẳng, muốn giải quyết nhanh. Đôi khi áp đặt giải pháp. Không thích kéo dài"},
+      {disc:"I",detail:"Hòa giải, muốn ai cũng vui. Đôi khi tránh né để giữ quan hệ. Khó đưa ra quyết định cứng"},
+      {disc:"S",detail:"Tránh né, chịu đựng, hy vọng tự hết. Nếu bùng phát thì rất nghiêm trọng vì tích tụ lâu"},
+      {disc:"C",detail:"Phân tích đúng/sai rõ ràng, đưa bằng chứng. Đôi khi quá cứng nhắc, thiếu empathy"},
+    ]},
+  ]},
+  weakness_fix:{title:"Khắc phục điểm yếu",sections:[
+    {heading:"Nguyên tắc quan trọng",items:[
+      {disc:"D",detail:"DISC là xu hướng tự nhiên, không phải giới hạn. Với nhận thức + luyện tập, ai cũng có thể THÊM kỹ năng của nhóm khác"},
+      {disc:"I",detail:"Không cần thay đổi BẢN CHẤT — cần thêm LINH HOẠT. Giữ điểm mạnh + bổ sung kỹ năng thiếu"},
+      {disc:"S",detail:"Thay đổi hành vi ≠ Thay đổi con người. Hành vi cụ thể → luyện tập cụ thể"},
+      {disc:"C",detail:"Vai trò Manager: Tạo MÔI TRƯỜNG để phát triển. Không ép — mà tạo cơ hội thử. Không phán xét — mà đồng hành"},
+    ]},
+    {heading:"🔴 D — Khắc phục điểm yếu",items:[
+      {disc:"D",detail:"① Thiếu kiên nhẫn: Mỗi meeting, tập KHÔNG NÓI trong 2 phút đầu. Chỉ lắng nghe. Ghi ra giấy thay vì nói ngay\n② Thiếu empathy: Sau mỗi quyết định lớn, viết ra: 'Quyết định này ảnh hưởng cảm xúc ai? Họ sẽ cảm thấy gì?'\n③ Hay áp đặt: Tập hỏi 'Em nghĩ sao?' trước khi nói ý mình. Mỗi tuần ghi lại 1 lần mình đã lắng nghe tốt\n④ Tạo áp lực quá mức: Mỗi tuần hỏi 1 member: 'Em có thấy áp lực quá không? Anh cần điều chỉnh gì?'\n⑤ Bỏ qua tiểu tiết: Trước khi submit/ship, dành 10 phút review bằng checklist. Không skip."},
+    ]},
+    {heading:"🟡 I — Khắc phục điểm yếu",items:[
+      {disc:"I",detail:"① Thiếu follow-up: Mỗi sáng thứ 2 viết 3 cam kết tuần này. Chiều thứ 6 check đã làm chưa. Không quá 3 — ít nhưng phải xong\n② Thiếu chi tiết: Trước khi gửi output nào, dành 5 phút check: 'Mình có miss gì không?' bằng checklist\n③ Hay phân tán: Mỗi sáng chọn 1 'con ếch' (việc quan trọng nhất) — ăn con ếch trước, rồi mới làm việc khác\n④ Né tránh conflict: Mỗi tuần chọn 1 'cuộc trò chuyện khó' cần có — thực hiện trong 48h, không hoãn\n⑤ Quá lạc quan: Trước mỗi quyết định, viết ra: Best case / Likely case / Worst case"},
+    ]},
+    {heading:"🟢 S — Khắc phục điểm yếu",items:[
+      {disc:"S",detail:"① Ngại nói thẳng: Mỗi tuần tập nói 'Em không đồng ý' 1 lần — bắt đầu từ việc nhỏ. Viết ra trước nếu chưa dám nói\n② Chậm ra quyết định: Với mỗi quyết định, hỏi: 'Nếu quyết sai, hậu quả tệ nhất là gì?' Nếu chấp nhận được → quyết ngay\n③ Khó nói 'không': Mỗi khi muốn nói 'có', dừng 5 giây hỏi: 'Mình CÓ THỂ làm tốt thêm việc này không?' Nếu không → 'em cần check lại'\n④ Ngại thay đổi: Mỗi tháng tự thử 1 điều mới nhỏ (đường đi làm mới, tool mới). Tập 'thay đổi nhỏ' để quen dần\n⑤ Quá bảo vệ member: Viết ra: 'Nếu mình không nói gì, 3 tháng sau member này sẽ thế nào?' → thấy rõ hậu quả"},
+    ]},
+    {heading:"🔵 C — Khắc phục điểm yếu",items:[
+      {disc:"C",detail:"① Cầu toàn quá mức: Trước mỗi task, hỏi: 'Task này cần 100% hay 80% là đủ?' Viết ra — và DỪNG khi đạt mức đã chọn\n② Khó delegate: Mỗi tuần delegate 1 việc mình thường tự làm. Chỉ set tiêu chuẩn output, KHÔNG kiểm soát quá trình\n③ Micromanage: Với mỗi task, viết rõ 'done = gì' ở đầu. Khi member submit, chỉ review theo tiêu chí đã set\n④ Thiếu empathy: Mỗi 1:1 bắt đầu bằng 2 phút hỏi thăm KHÔNG liên quan công việc. Tập 'small talk' như luyện cơ\n⑤ Quá cứng quy trình: Mỗi quý review 1 quy trình: 'Cái này còn phù hợp không? Cần thay đổi gì?'"},
+    ]},
+    {heading:"Mỗi nhóm cần học gì từ nhóm nào?",items:[
+      {disc:"D",detail:"Từ I: Kết nối, sự đồng cảm, vui vẻ hơn\nTừ S: Kiên nhẫn, lắng nghe, chậm lại\nTừ C: Chi tiết, cẩn thận, phân tích trước khi quyết"},
+      {disc:"I",detail:"Từ D: Kỷ luật, follow-up, focus\nTừ S: Nhất quán, bền bỉ, đáng tin\nTừ C: Chi tiết, data, cấu trúc"},
+      {disc:"S",detail:"Từ D: Quyết đoán, dám nói thẳng, ra quyết định\nTừ I: Năng lượng, mở lòng với thay đổi\nTừ C: Logic, phân tích, set chuẩn rõ ràng"},
+      {disc:"C",detail:"Từ D: Tốc độ, dám chấp nhận rủi ro, trust team\nTừ I: Warmth, giao tiếp mềm, sáng tạo\nTừ S: Kiên nhẫn, empathy, quan tâm con người"},
+    ]},
+    {heading:"4 bước giúp member khắc phục điểm yếu",items:[
+      {disc:"D",detail:"Bước 1 — NHẬN DIỆN: Giúp member thấy điểm yếu qua data/feedback, KHÔNG phán xét\nVí dụ: 'Anh thấy trong 3 tháng qua, em hay trễ deadline khi task cần nhiều follow-up. Em thấy sao?' (với I)"},
+      {disc:"I",detail:"Bước 2 — ĐỊNH HÌNH LẠI: Đặt lại vấn đề — điểm yếu không xấu, chỉ là chưa phát triển đủ\nVí dụ: 'Việc em cẩn thận là rất tốt. Giờ mình thêm 1 kỹ năng nữa: biết khi nào 80% là đủ' (với C)"},
+      {disc:"S",detail:"Bước 3 — LUYỆN TẬP NHỎ: Cho bài tập cụ thể, nhỏ, đo lường được — không ép thay đổi lớn ngay\nVí dụ: 'Tuần này em thử nói ý kiến trong meeting 1 lần — không cần dài, 1-2 câu thôi' (với S)"},
+      {disc:"C",detail:"Bước 4 — GHI NHẬN TIẾN BỘ: Khen ngay khi thấy member thử — dù chưa hoàn hảo. Quan trọng là ĐANG CỐ\nVí dụ: 'Hôm nay em dám nói thẳng trong meeting — anh rất appreciate. Lần sau thêm đề xuất giải pháp nữa'"},
+    ]},
+    {heading:"⚠️ Lưu ý quan trọng",items:[
+      {disc:"D",detail:"Đừng cố THAY ĐỔI bản chất — hãy giúp member MỞ RỘNG phong cách. D vẫn là D, nhưng D biết chậm lại khi cần"},
+      {disc:"I",detail:"Mỗi lần chỉ focus 1 điểm yếu. Push quá nhiều cùng lúc → member choáng, bỏ cuộc"},
+      {disc:"S",detail:"Luyện tập cần THỜI GIAN. Thay đổi hành vi 2-4 tuần, thay đổi phong cách 3-6 tháng. Kiên nhẫn"},
+      {disc:"C",detail:"Điểm yếu của nhóm này = Điểm mạnh của nhóm khác. Nên GHÉP ĐÔI bổ khuyết thay vì ép 1 người làm hết"},
+    ]},
+  ]},
+  playbook:{title:"Playbook quản lý hàng ngày",sections:[
+    {heading:"Cách 1:1 với từng nhóm",items:[
+      {disc:"D",detail:"Tần suất: Ngắn, 15-20 phút, đi thẳng vấn đề\nMở đầu: 'Em đang cần gì từ anh?'\nNên hỏi: 'Kết quả đang ở đâu? Cần gì để nhanh hơn?'\nKhông nên: Nói dài, hỏi nhiều câu cảm xúc, micromanage\nKết thúc: Action items rõ ràng + deadline"},
+      {disc:"I",detail:"Tần suất: Linh hoạt, có thể dài hơn, cho nói thoải mái\nMở đầu: 'Tuần này em thế nào?'\nNên hỏi: 'Em có ý tưởng gì mới không?'\nKhông nên: Chỉ nói task/deadline, không hỏi thăm\nKết thúc: Lời khen + next step"},
+      {disc:"S",detail:"Tần suất: Đều đặn, đúng lịch, đừng cancel\nMở đầu: 'Anh muốn check-in xem em ok không'\nNên hỏi: 'Em cảm thấy thế nào? Có gì lo không?'\nKhông nên: Cancel liên tục, hỏi trước đám đông\nKết thúc: Xác nhận em ok + hỗ trợ cần gì"},
+      {disc:"C",detail:"Tần suất: Đúng lịch, có agenda trước\nMở đầu: 'Anh gửi agenda trước, em xem nhé'\nNên hỏi: 'Em thấy phần nào cần cải thiện? Data nói gì?'\nKhông nên: Nói chung chung, thay đổi agenda đột ngột\nKết thúc: Tóm tắt bằng văn bản + follow-up rõ"},
+    ]},
+    {heading:"Cách giao việc chi tiết",items:[
+      {disc:"D",detail:"Giao gì: Việc thử thách cao, ship nhanh, deadline gấp, cần kết quả sớm hoặc đột phá\nBrief: Ngắn — kết quả kỳ vọng + deadline. Không cần chi tiết cách làm\nQuyền: Cho nhiều quyền tự quyết — D thích autonomy\nCheck-in: Ít — chỉ khi cần. 'Có gì cần anh thì nói'\nKhi trễ: Hỏi thẳng 'Đang ở đâu? Cần gì?'"},
+      {disc:"I",detail:"Giao gì: Việc cần tương tác, phối hợp nhiều đầu mối, brainstorm, innovation, build culture\nBrief: Giải thích WHY trước — tại sao quan trọng, impact gì\nQuyền: Cho không gian sáng tạo nhưng set khung rõ\nCheck-in: Cần check — I hay bị phân tán, quên follow-up\nKhi trễ: Nhắc nhẹ, đừng blame — I sẽ tự giác nếu remind đúng cách"},
+      {disc:"S",detail:"Giao gì: Việc vận hành bền bỉ, đều đặn, onboard/mentor newbie, dự án dài giữ nhịp\nBrief: Step-by-step — làm gì trước, làm gì sau, timeline rõ\nQuyền: Hướng dẫn rõ + check-in giữa chừng\nCheck-in: Nên check nhẹ — S ngại hỏi khi bị stuck\nKhi trễ: Hỏi riêng, nhẹ nhàng: 'Có gì khó không em?'"},
+      {disc:"C",detail:"Giao gì: Xây quy trình, framework, nâng chuẩn quality, phân tích research, documentation\nBrief: Chi tiết — spec, tiêu chuẩn, data cần, tham chiếu\nQuyền: Cho tự research nhưng rõ tiêu chuẩn output\nCheck-in: Đặt milestone review — C muốn biết đang đi đúng hướng\nKhi trễ: Hỏi 'Đang block ở đâu? Cần thêm thông tin gì?'"},
+    ]},
+    {heading:"Cách đưa tin xấu / thông báo thay đổi",items:[
+      {disc:"D",detail:"Cách nói: Thẳng thắn, không vòng vo. Nói impact + plan xử lý\nSau khi nói: Cho D quyền đề xuất giải pháp — D cần cảm giác kiểm soát\nTuyệt đối không: Nói vòng vo, giấu thông tin, tỏ ra yếu đuối"},
+      {disc:"I",detail:"Cách nói: Mềm mỏng, nói kèm mặt tích cực. Cho biết 'team sẽ cùng nhau'\nSau khi nói: Check-in cảm xúc sau 1-2 ngày — I hay tỏ ra ok nhưng bên trong buồn\nTuyệt đối không: Blame trước mặt team, làm mất mặt"},
+      {disc:"S",detail:"Cách nói: Riêng tư, nhẹ nhàng, giải thích LÝ DO kỹ. Cho thời gian tiêu hóa\nSau khi nói: Follow-up nhiều lần — S cần thời gian thích nghi, đừng bỏ rơi\nTuyệt đối không: Thông báo đột ngột không giải thích, không cho thời gian"},
+      {disc:"C",detail:"Cách nói: Cung cấp data, phân tích logic tại sao phải đổi. Cho thời gian xem xét\nSau khi nói: Trả lời mọi câu hỏi — C sẽ hỏi rất nhiều, đó là cách C xử lý\nTuyệt đối không: Nói chung chung không data, thay đổi mà không logic"},
+    ]},
+    {heading:"Cách phỏng vấn — Nhận diện DISC ứng viên",items:[
+      {disc:"D",detail:"Dấu hiệu: Nói ngắn, confident, hay hỏi ngược lại, muốn biết challenge\nCâu hỏi probe: 'Kể tình huống bạn phải quyết nhanh dù thiếu info?'\nRed flag: Quá áp đặt, không lắng nghe, thiếu teamwork"},
+      {disc:"I",detail:"Dấu hiệu: Nói nhiều, kể story, năng lượng cao, hỏi về culture/team\nCâu hỏi probe: 'Bạn từng truyền cảm hứng cho team thế nào?'\nRed flag: Chỉ nói không có kết quả cụ thể, quá surface"},
+      {disc:"S",detail:"Dấu hiệu: Nói chậm, cẩn thận, hỏi về stability, team, manager style\nCâu hỏi probe: 'Bạn handle thế nào khi team thay đổi đột ngột?'\nRed flag: Quá thụ động, không có ý kiến riêng"},
+      {disc:"C",detail:"Dấu hiệu: Hỏi chi tiết JD, tech stack, quy trình, tiêu chuẩn\nCâu hỏi probe: 'Kể case bạn phải đảm bảo chất lượng dưới áp lực?'\nRed flag: Quá cứng nhắc, thiếu adaptability"},
+    ]},
+    {heading:"Cách onboarding newbie theo DISC",items:[
+      {disc:"D",detail:"Tuần đầu: Cho context nhanh + giao task nhỏ ngay — D ghét ngồi không\nTháng đầu: Giao project thật, cho autonomy, review kết quả\nSai lầm: Cho D ngồi training cả tuần → D sẽ chán"},
+      {disc:"I",detail:"Tuần đầu: Giới thiệu team, đưa đi ăn trưa, kết nối social\nTháng đầu: Kết nối với nhiều team, cho tham gia meeting, role visibility\nSai lầm: Để I tự onboard một mình → I cần interaction"},
+      {disc:"S",detail:"Tuần đầu: Giới thiệu từ từ, có buddy, hướng dẫn kỹ từng bước\nTháng đầu: Check-in thường xuyên, hỏi cảm nhận, tạo safe space\nSai lầm: Throw S vào task khó ngay ngày đầu → S sẽ hoảng"},
+      {disc:"C",detail:"Tuần đầu: Gửi tài liệu đầy đủ trước, cho thời gian đọc + làm quen\nTháng đầu: Giải thích quy trình rõ, mentor chuyên môn, review quality\nSai lầm: Onboard bằng miệng không tài liệu → C sẽ mất phương hướng"},
+    ]},
+    {heading:"Cách giữ người theo DISC",items:[
+      {disc:"D",detail:"Lý do hay nghỉ: Thiếu thử thách, bị micromanage, không thấy growth path\nDấu hiệu sắp nghỉ: Cáu gắt hơn, challenge quyết định liên tục, disengage\nCách giữ: Giao thử thách mới, mở rộng scope, cho lead project\nCâu nói khi giữ: 'Anh thấy em có thể handle bài toán lớn hơn'"},
+      {disc:"I",detail:"Lý do hay nghỉ: Không được công nhận, môi trường nhàm chán, bị isolate\nDấu hiệu sắp nghỉ: Trầm hẳn, ít nói, không đóng góp ý tưởng — khác hẳn\nCách giữ: Khen công khai, tạo cơ hội tỏa sáng, involve vào việc đặc biệt\nCâu nói khi giữ: 'Team rất cần năng lượng và ý tưởng của em'"},
+      {disc:"S",detail:"Lý do hay nghỉ: Thay đổi quá nhiều, mất mối quan hệ team, conflict kéo dài\nDấu hiệu sắp nghỉ: Thụ động hơn bình thường, disconnect team activities\nCách giữ: Ổn định, quan tâm cá nhân, bảo vệ khỏi thay đổi không cần thiết\nCâu nói khi giữ: 'Em là người anh tin tưởng nhất, anh rất trân trọng'"},
+      {disc:"C",detail:"Lý do hay nghỉ: Chất lượng bị compromise, không được tôn trọng chuyên môn\nDấu hiệu sắp nghỉ: Ngừng góp ý, làm cho xong thay vì làm cho tốt\nCách giữ: Cho thời gian làm kỹ, tôn trọng ý kiến, giao việc chất lượng cao\nCâu nói khi giữ: 'Không ai trong team có chuyên môn sâu như em'"},
+    ]},
+  ]},
+  context_strengths:{title:"Điểm mạnh/yếu theo ngữ cảnh",sections:[
+    {heading:"Khi làm Manager — Tác động đến team",items:[
+      {disc:"D",detail:"✅ Ra quyết định nhanh trong khủng hoảng · Push team đạt KPI · Dám xử lý người performance yếu · Bảo vệ team trước cấp trên · Dẫn dắt bằng hành động\n❌ Micromanage hoặc bỏ rơi · Tạo môi trường 'sợ sếp' · Ra lệnh thay vì hỏi · Bỏ qua phát triển con người · Burn out members nhanh\n→ Tác động: Hiệu suất cao nhưng turnover cao. Members giỏi nghỉ vì không có không gian phát triển"},
+      {disc:"I",detail:"✅ Truyền cảm hứng, vision motivating · Tạo không khí vui, gắn kết · Network rộng, mở cơ hội cho team · Khen ngợi, ghi nhận tự nhiên · Linh hoạt, dễ thương lượng\n❌ Tránh cuộc trò chuyện khó · Quên follow-up, trượt deadline · Thiếu cấu trúc · Thiên vị người mình 'hợp' · Bỏ chi tiết quan trọng\n→ Tác động: Vui vẻ, gắn kết nhưng thiếu kỷ luật. Hay miss deadline, performance không đồng đều"},
+      {disc:"S",detail:"✅ Tạo tâm lý an toàn, team dám nói thật · Lắng nghe sâu, hiểu từng member · Mentor kiên nhẫn · Coach 1:1 chất lượng · Đối xử công bằng\n❌ Tránh ra quyết định cứng · Bảo vệ team thái quá · Ngại đối mặt khi member sai · Không escalate kịp thời\n→ Tác động: Gắn kết, ít stress nhưng tăng trưởng chậm. Member yếu được dung dưỡng quá lâu"},
+      {disc:"C",detail:"✅ Hệ thống hóa, quy trình rõ ràng · Quality cao, ít lỗi · Feedback chi tiết, có data · Plan kỹ, dự đoán rủi ro · Công bằng dựa tiêu chí khách quan\n❌ Phân tích quá lâu · Quá khắt khe, ít khen · Standard cao đến mức 'không bao giờ đủ' · Khó trao quyền\n→ Tác động: Output chất lượng nhưng động lực thấp. Innovation thấp vì mọi thứ phải 'theo quy trình'"},
+    ]},
+    {heading:"Khi làm Member — Cách Manager nên giao việc",items:[
+      {disc:"D",detail:"✅ Chủ động, take ownership · Dám đảm nhận việc khó · Push back lành mạnh · Closer — không bỏ giữa chừng · Phát hiện cơ hội nhanh\n❌ Khó tuân thủ quy trình · Có thể vượt quyền · Thiếu kiên nhẫn với teammate chậm · Bỏ qua chi tiết\n→ Giao TASK CÓ THÁCH THỨC + AUTONOMY cao. Nói rõ WHAT, không quy định HOW. Cho deadline rõ, để D tự organize"},
+      {disc:"I",detail:"✅ Năng lượng tích cực, lan toả team · Sáng tạo, đề xuất ý tưởng mới · Pitch giỏi · Networking mang về connections · Linh hoạt\n❌ Hứa nhanh quên nhanh · Bắt đầu nhiều hoàn thành ít · Paperwork chậm trễ · Cảm tính khi nhận feedback\n→ Giao TASK CÓ TƯƠNG TÁC + ĐA DẠNG. Set milestone NGẮN (1-2 tuần), check-in thường xuyên. Pair với C"},
+      {disc:"S",detail:"✅ Đáng tin cậy, làm đúng cam kết · Kiên nhẫn với task tỉ mỉ · Team player, không tranh công · Mentor newbie tốt · Ổn định\n❌ Ngại đề xuất ý kiến · Khó nói KHÔNG → overload · Sợ thay đổi · Giấu vấn đề thay vì raise\n→ Giao TASK ỔN ĐỊNH + RÕ RÀNG. Báo trước thay đổi 1-2 tuần. 1:1 đều đặn để S nói thật. Khen nỗ lực thầm lặng"},
+      {disc:"C",detail:"✅ Chất lượng cao, ít lỗi · Phân tích sâu · Cẩn trọng, anticipate vấn đề · Tài liệu bài bản · Quality gate tự nhiên\n❌ Chậm khi cần ship nhanh · Quá nhiều 'yes, but...' · Lone wolf · Phê phán ngầm\n→ Giao TASK CẦN PRECISION + ĐỦ THỜI GIAN. Cung cấp DATA đầy đủ. Khi cần nhanh, nói rõ 'good enough is OK'"},
+    ]},
+    {heading:"Vai trò phù hợp trong nhóm (Teamwork)",items:[
+      {disc:"D",detail:"Đóng góp: Driver — đẩy nhóm đi tới quyết định · Phá vỡ bế tắc · Defend team trước cản trở · Thúc deadline\nGây khó: Át ý kiến người khác · Không kiên nhẫn brainstorm dài · Quyết 1 mình rồi báo\n→ Vai trò phù hợp: Project Lead / Decision Maker / Closer (giai đoạn cuối cần đẩy ship)"},
+      {disc:"I",detail:"Đóng góp: Energizer — giữ tinh thần · Sáng tạo trong brainstorm · Mediator hài hước · Pitch ý tưởng nhóm ra ngoài\nGây khó: Nói chiếm thời gian meeting · Đi lệch chủ đề · Hứa giúp nhưng quên\n→ Vai trò phù hợp: Brainstormer / Spokesperson / Motivator (giai đoạn đầu cần ý tưởng + năng lượng)"},
+      {disc:"S",detail:"Đóng góp: Listener — nghe mọi người · Mediator âm thầm · Hỗ trợ teammate quá tải · Giữ không khí an toàn\nGây khó: Ít đóng góp idea công khai · Đồng ý giả vờ · Chậm khi cần quyết nhanh\n→ Vai trò phù hợp: Mentor / Support / Quality of life keeper (giúp team bền vững dài hạn)"},
+      {disc:"C",detail:"Đóng góp: Truth-teller dựa data · Quality checker, catch lỗi sớm · Build process, framework · Anticipate risk\nGây khó: Block ý tưởng bằng 'yes, but...' · Đào sâu chi tiết khi cần nhanh · Đánh giá đồng nghiệp ngầm\n→ Vai trò phù hợp: Analyst / Quality Gate / Risk Manager (giai đoạn refine + ship cần chắc chắn)"},
+    ]},
+    {heading:"Khi ra quyết định (Decision Making)",items:[
+      {disc:"D",detail:"✅ Quyết nhanh, không lưỡng lự · Không tê liệt vì thiếu info · Sẵn sàng chịu trách nhiệm · Tốt trong khủng hoảng\n❌ Có thể quyết liều · Không tham vấn đủ · Khó đổi quyết định · Bỏ qua góc nhìn người bị ảnh hưởng\n→ Phù hợp: Khủng hoảng, deadline cực gấp, vấn đề rõ ràng cần action ngay"},
+      {disc:"I",detail:"✅ Lạc quan, dám thử mới · Ý tưởng đột phá · Bán quyết định cho team giỏi\n❌ Cảm tính, thay đổi liên tục · Thiếu phân tích · Bị thuyết phục dễ · Quên follow up\n→ Phù hợp: Quyết định branding, marketing, văn hóa — nơi cảm xúc + energy quan trọng"},
+      {disc:"S",detail:"✅ Cân nhắc kỹ tác động lên người · Tham vấn stakeholders · Quyết định bền vững · Đồng thuận cao\n❌ Chậm, lưỡng lự · Tránh quyết định gây xung đột · Bị influence bởi cảm xúc người khác\n→ Phù hợp: Restructuring, văn hóa team, conflict cá nhân, change đòi đồng thuận"},
+      {disc:"C",detail:"✅ Phân tích data sâu, đa chiều · Anticipate rủi ro · Quyết định có cơ sở rõ · Ít sai sót\n❌ Chậm — đòi quá nhiều data · Analysis paralysis · Khó quyết khi context mơ hồ\n→ Phù hợp: Quyết định kỹ thuật, audit, compliance, financial — nơi mọi sai sót đều tốn kém"},
+    ]},
+    {heading:"Trong sự thay đổi (Change Management)",items:[
+      {disc:"D",detail:"✅ Đón nhận nếu thấy CƠ HỘI · Tiên phong thử mới · Đẩy nhanh transform · Không sợ rủi ro\n❌ Phản đối nếu mất kiểm soát · Đi quá nhanh, team không theo kịp · Bỏ qua emotional impact\n→ Manager: Show D thấy CƠ HỘI + CHALLENGE. Giao role lead change. Cho autonomy thực hiện"},
+      {disc:"I",detail:"✅ Hào hứng với new ideas · Bán change cho team giỏi · Linh hoạt, dễ pivot · Tạo năng lượng tích cực\n❌ Hào hứng ban đầu nhưng nguội nhanh · Quên follow through · Cam kết verbal nhưng không action\n→ Manager: Cho I role 'evangelist'. Set milestone NGẮN giữ momentum. Pair với S/C theo dõi execution"},
+      {disc:"S",detail:"✅ Khi buy-in rồi, S theo bền vững · Giúp team khác adapt · Cảm nhận emotional impact · Giữ ổn định\n❌ Resist mạnh ban đầu · Cần thời gian dài buy-in · Lo lắng âm thầm · 'Đồng ý ngoài, phản đối trong'\n→ Manager: Báo TRƯỚC 2-4 tuần. Giải thích WHY rõ. 1:1 lắng nghe lo lắng. Đảm bảo S thấy KHÔNG BỊ BỎ LẠI"},
+      {disc:"C",detail:"✅ Phân tích kỹ trước khi adopt · Catch rủi ro · Đề xuất phương án backup · Implement đúng quy trình\n❌ Đòi đủ data trước khi action · Nhiều 'yes, but...' · Resist nếu plan thiếu cơ sở\n→ Manager: Show DATA + LOGIC. Trả lời CHI TIẾT câu hỏi. Cho C role analyze risk + design quy trình mới"},
+    ]},
+    {heading:"⚠️ 5 sai lầm hay gặp khi dùng DISC",items:[
+      {disc:"D",detail:"1. Dán nhãn cứng: 'Em là D nên không có đồng cảm' — SAI. DISC là xu hướng, không phải định mệnh. Mỗi người đều có cả 4 yếu tố, chỉ là tỷ lệ khác nhau"},
+      {disc:"I",detail:"2. So sánh tốt - xấu: Không có nhóm 'tốt nhất'. Mỗi điểm mạnh đi kèm điểm yếu, mỗi điểm yếu đều có giá trị trong đúng context"},
+      {disc:"S",detail:"3. Ép member sửa điểm yếu: Manager giỏi LEVERAGE điểm mạnh + BÙ ĐẮP điểm yếu (qua pairing, process). Sửa điểm yếu là lựa chọn của cá nhân\n4. Stereotype khi tuyển: 'Vị trí này cần D thôi' — SAI. Vị trí cần KỸ NĂNG, không phải tính cách"},
+      {disc:"C",detail:"5. Bỏ qua context: Cùng 1 người, ở môi trường khác có thể bộc lộ DISC khác. Đừng kết luận cứng dựa trên 1 hoàn cảnh\n✅ Cách dùng đúng: Dùng để HIỂU, không LABEL. Pair team theo bổ trợ: D-S, I-C. Review lại mỗi 6 tháng"},
+    ]},
+  ]},
+};
+Object.assign(KNOWLEDGE, KNOWLEDGE_EXTRA);
 
 const QUESTIONS = [
   {id:1,title:"Cách viết tin nhắn/email",cat:"Giao tiếp & Tương tác",options:{D:"Ngắn gọn, đi thẳng vấn đề, ít emoji",I:"Dài, nhiều emoji, kể context, hay gửi voice",S:'Lịch sự, đầy đủ "anh/chị", hay hỏi lại "em hiểu đúng chưa?"',C:"Đánh số, có bullet point, attach file đầy đủ"}},
@@ -396,10 +661,61 @@ const QUESTIONS = [
   {id:48,title:"Khi ai đó đến muộn",cat:"Khi gặp vấn đề trong cuộc sống",options:{D:"Khó chịu rõ ràng, nhắc thẳng",I:'"Không sao, vào đi!" — dễ bỏ qua',S:"Im lặng chờ, không nói gì nhưng hơi buồn",C:"Ghi nhớ, lần sau sẽ tính thêm buffer time"}},
   {id:49,title:"Cách nghỉ ngơi cuối tuần",cat:"Khi gặp vấn đề trong cuộc sống",options:{D:"Làm gì đó productive: side project, đọc sách, sắp xếp",I:"Đi chơi, gặp bạn, event, party — ghét ở nhà 1 mình",S:"Ở nhà, nấu ăn, xem phim, thời gian yên tĩnh với gia đình",C:"Có plan cụ thể: sáng đọc sách, chiều cafe, tối xem phim X"}},
   {id:50,title:"Nếu chỉ dùng 1 từ để mô tả",cat:"Tổng kết",options:{D:"HIỆU QUẢ",I:"VUI VẺ",S:"ỔN ĐỊNH",C:"CHÍNH XÁC"}},
+  {id:51,title:"Điều họ SỢ nhất",cat:"Chân dung DISC",options:{D:"Mất quyền kiểm soát, bị coi là yếu đuối",I:"Bị từ chối, bỏ quên, mất kết nối xã hội",S:"Thay đổi đột ngột, mâu thuẫn, mất ổn định",C:"Bị phê bình vô căn cứ, sai sót do vội vàng"}},
+  {id:52,title:"Điều khiến họ THÍCH nhất",cat:"Chân dung DISC",options:{D:"Quyền kiểm soát, thử thách mới, tốc độ nhanh",I:"Sự công nhận, không khí vui vẻ, tự do sáng tạo",S:"Sự ổn định, môi trường hài hòa, quan hệ chân thành",C:"Sự chính xác, logic rõ ràng, quy trình chuẩn"}},
+  {id:53,title:"Điều khiến họ TỤT ĐỘNG LỰC",cat:"Chân dung DISC",options:{D:"Bị micromanage, họp dài vô ích, thiếu quyền tự quyết",I:"Bị phớt lờ, môi trường quá nghiêm túc, làm việc 1 mình quá lâu",S:"Thay đổi liên tục không lý do, mâu thuẫn kéo dài, nỗ lực không được ghi nhận",C:"Quyết định vội vàng thiếu logic, tiêu chuẩn thấp, feedback chung chung"}},
+  {id:54,title:"Phong cách HỌC HỎI",cat:"Chân dung DISC",options:{D:"Học qua thực chiến, thử rồi rút kinh nghiệm, muốn áp dụng ngay",I:"Học qua tương tác, thảo luận, game — cần không khí vui",S:"Học qua quan sát, mentoring 1:1, từ từ — cần môi trường an toàn",C:"Học qua nghiên cứu, đọc, phân tích — thích tài liệu chi tiết"}},
+  {id:55,title:"Cách RA QUYẾT ĐỊNH",cat:"Chân dung DISC",options:{D:"Nhanh, dứt khoát, dựa trực giác + kinh nghiệm. Chấp nhận rủi ro",I:"Dựa cảm xúc, intuition, ý kiến người tin tưởng. Nhanh nhưng thiếu phân tích",S:"Chậm, cần thời gian, hỏi nhiều người, muốn đồng thuận",C:"Dựa data, phân tích kỹ, so sánh options. Chậm nhưng có logic rõ"}},
+  {id:56,title:"Thích làm việc với KIỂU NGƯỜI nào",cat:"Chân dung DISC",options:{D:"Người nhanh, cam kết, nói ít làm nhiều",I:"Người vui, cởi mở, năng lượng cao",S:"Người chân thành, kiên nhẫn, đáng tin",C:"Người logic, chuyên nghiệp, có năng lực"}},
+  {id:57,title:"Cách XÂY DỰNG QUAN HỆ",cat:"Chân dung DISC",options:{D:"Dựa trên respect & kết quả — không cần thân nhưng cần tin tưởng năng lực",I:"Dựa trên kết nối cảm xúc — thân nhanh, mạng lưới rộng",S:"Dựa trên sự tin tưởng & thời gian — chậm nhưng sâu, rất loyal",C:"Dựa trên tôn trọng chuyên môn — professional, cần thời gian mở lòng"}},
+  {id:58,title:"Điều họ CẦN từ Manager",cat:"Chân dung DISC",options:{D:"Giao mục tiêu rõ, cho quyền tự quyết, đừng micromanage",I:"Công nhận, khen trước mặt người khác, cho cơ hội sáng tạo",S:"Quan tâm cá nhân, cho thời gian thích nghi, tạo môi trường an toàn",C:"Cung cấp đủ thông tin/data, tôn trọng chuyên môn, cho thời gian làm kỹ"}},
+  {id:59,title:"Cách XỬ LÝ CONFLICT",cat:"Chân dung DISC",options:{D:"Đối đầu thẳng, muốn giải quyết nhanh, đôi khi áp đặt",I:"Hòa giải, muốn ai cũng vui, đôi khi tránh né để giữ quan hệ",S:"Tránh né, chịu đựng, hy vọng tự hết — nếu bùng phát thì rất nghiêm trọng",C:"Phân tích đúng/sai rõ ràng, đưa bằng chứng, đôi khi quá cứng nhắc"}},
+  {id:60,title:"Cách THỰC HIỆN CÔNG VIỆC",cat:"Chân dung DISC",options:{D:"Nhanh, dứt khoát — chia nhỏ → delegate → push. Chỉ cần outcome",I:"Bắt đầu từ phần hào hứng nhất, sáng tạo, linh hoạt. Hay nhảy giữa nhiều việc",S:"Tuần tự, cẩn thận, từng bước. Bền bỉ, ít bỏ dở. Cần brief rõ ràng",C:"Research kỹ → lập plan → thực hiện có hệ thống. Output chất lượng cao, ít sai sót"}},
+  {id:61,title:"Bài tập khắc phục: THIẾU KIÊN NHẪN",cat:"Khắc phục điểm yếu",options:{D:"Mỗi meeting tập KHÔNG NÓI trong 2 phút đầu. Ghi ra giấy thay vì nói ngay",I:"Mỗi sáng thứ 2 viết 3 cam kết tuần. Chiều thứ 6 check đã làm chưa",S:"Mỗi tuần tập nói 'Em không đồng ý' 1 lần — bắt đầu từ việc nhỏ",C:"Trước mỗi task, hỏi 'Task này cần 100% hay 80%?' — DỪNG khi đạt mức đã chọn"}},
+  {id:62,title:"Bài tập khắc phục: THIẾU FOLLOW-UP",cat:"Khắc phục điểm yếu",options:{D:"Mỗi tuần hỏi 1 member: 'Em có thấy áp lực quá không?'",I:"Mỗi sáng thứ 2 viết 3 cam kết tuần này. Không quá 3 — ít nhưng phải xong",S:"Với mỗi quyết định, hỏi: 'Nếu quyết sai, hậu quả tệ nhất là gì?'",C:"Mỗi tuần delegate 1 việc mình thường tự làm"}},
+  {id:63,title:"Nhóm D cần HỌC gì từ nhóm nào?",cat:"Khắc phục điểm yếu",options:{D:"Từ I: Kết nối, đồng cảm · Từ S: Kiên nhẫn, lắng nghe · Từ C: Chi tiết, phân tích",I:"Từ D: Kỷ luật, follow-up · Từ S: Nhất quán, bền bỉ · Từ C: Data, cấu trúc",S:"Từ D: Quyết đoán, dám nói thẳng · Từ I: Năng lượng, mở lòng · Từ C: Logic, set chuẩn",C:"Từ D: Tốc độ, dám chấp nhận rủi ro · Từ I: Warmth, sáng tạo · Từ S: Empathy"}},
+  {id:64,title:"Bước 1 giúp member khắc phục điểm yếu",cat:"Khắc phục điểm yếu",options:{D:"NHẬN DIỆN: Giúp member thấy điểm yếu qua data/feedback, KHÔNG phán xét",I:"ĐỊNH HÌNH LẠI: Điểm yếu không xấu, chỉ là chưa phát triển đủ",S:"LUYỆN TẬP NHỎ: Bài tập cụ thể, nhỏ, đo lường được",C:"GHI NHẬN TIẾN BỘ: Khen ngay khi thấy member thử — dù chưa hoàn hảo"}},
+  {id:65,title:"Nguyên tắc: Thay đổi hành vi ≠ ?",cat:"Khắc phục điểm yếu",options:{D:"DISC là xu hướng tự nhiên, không phải giới hạn",I:"Không cần thay đổi BẢN CHẤT — cần thêm LINH HOẠT",S:"Thay đổi hành vi ≠ Thay đổi con người. Hành vi → luyện tập cụ thể",C:"Manager tạo MÔI TRƯỜNG để phát triển. Không ép — mà tạo cơ hội"}},
+  {id:66,title:"Bài tập cho I: Chống phân tán",cat:"Khắc phục điểm yếu",options:{D:"Trước khi submit, dành 10 phút review bằng checklist",I:"Mỗi sáng chọn 1 'con ếch' (việc quan trọng nhất) — ăn con ếch trước",S:"Mỗi tháng tự thử 1 điều mới nhỏ để quen dần thay đổi",C:"Mỗi quý review 1 quy trình: 'Cái này còn phù hợp không?'"}},
+  {id:67,title:"Bài tập cho S: Dám nói KHÔNG",cat:"Khắc phục điểm yếu",options:{D:"Sau mỗi quyết định lớn, viết ra: 'Ảnh hưởng cảm xúc ai?'",I:"Mỗi tuần chọn 1 'cuộc trò chuyện khó' — thực hiện trong 48h",S:"Mỗi khi muốn nói 'có', dừng 5 giây hỏi: 'Mình CÓ THỂ làm tốt thêm không?'",C:"Mỗi 1:1 bắt đầu bằng 2 phút hỏi thăm KHÔNG liên quan công việc"}},
+  {id:68,title:"Bài tập cho C: Bớt cầu toàn",cat:"Khắc phục điểm yếu",options:{D:"Tập hỏi 'Em nghĩ sao?' trước khi nói ý mình",I:"Trước mỗi quyết định, viết: Best case / Likely case / Worst case",S:"Viết ra: 'Nếu mình không nói gì, 3 tháng sau member sẽ thế nào?'",C:"Trước mỗi task, hỏi: 'Task này cần 100% hay 80%?' — DỪNG khi đạt"}},
+  {id:69,title:"Lưu ý quan trọng: Mỗi lần focus bao nhiêu điểm yếu?",cat:"Khắc phục điểm yếu",options:{D:"Đừng cố thay đổi bản chất — hãy giúp member MỞ RỘNG phong cách",I:"Mỗi lần chỉ focus 1 điểm yếu. Push quá nhiều → member bỏ cuộc",S:"Thay đổi hành vi 2-4 tuần, thay đổi phong cách 3-6 tháng. Kiên nhẫn",C:"Điểm yếu nhóm này = Điểm mạnh nhóm khác. Nên GHÉP ĐÔI bổ khuyết"}},
+  {id:70,title:"Thời gian thay đổi phong cách mất bao lâu?",cat:"Khắc phục điểm yếu",options:{D:"D vẫn là D, nhưng D biết chậm lại khi cần",I:"Mỗi lần 1 điểm — ít nhưng nhất quán",S:"Thay đổi hành vi: 2-4 tuần. Thay đổi phong cách: 3-6 tháng",C:"Nên ghép đôi bổ khuyết thay vì ép 1 người làm hết"}},
+  {id:71,title:"Cách mở đầu 1:1",cat:"Playbook quản lý",options:{D:"'Em đang cần gì từ anh?' — ngắn, đi thẳng vấn đề",I:"'Tuần này em thế nào?' — linh hoạt, cho nói thoải mái",S:"'Anh muốn check-in xem em ok không' — đều đặn, đúng lịch",C:"'Anh gửi agenda trước, em xem nhé' — có agenda, đúng lịch"}},
+  {id:72,title:"Giao việc cho D: Loại task nào?",cat:"Playbook quản lý",options:{D:"Việc thử thách cao, ship nhanh, deadline gấp — cho nhiều quyền tự quyết",I:"Việc tương tác, brainstorm, innovation, build culture — giải thích WHY trước",S:"Việc vận hành bền bỉ, onboard newbie, dự án dài — step-by-step, timeline rõ",C:"Xây quy trình, nâng chuẩn quality, research — brief chi tiết, rõ tiêu chuẩn output"}},
+  {id:73,title:"Khi I bị trễ deadline, manager nên?",cat:"Playbook quản lý",options:{D:"Hỏi thẳng 'Đang ở đâu? Cần gì?' — D chịu được áp lực",I:"Nhắc nhẹ, đừng blame — I sẽ tự giác nếu remind đúng cách",S:"Hỏi riêng, nhẹ nhàng: 'Có gì khó không em?' — S ngại hỏi khi stuck",C:"Hỏi 'Đang block ở đâu? Cần thêm thông tin gì?' — C cần data"}},
+  {id:74,title:"Đưa tin xấu cho S, cách nào đúng?",cat:"Playbook quản lý",options:{D:"Thẳng thắn, không vòng vo. Cho D quyền đề xuất giải pháp",I:"Mềm mỏng, nói kèm mặt tích cực. Check-in cảm xúc sau 1-2 ngày",S:"Riêng tư, nhẹ nhàng, giải thích LÝ DO kỹ. Follow-up nhiều lần",C:"Cung cấp data, phân tích logic. Trả lời mọi câu hỏi chi tiết"}},
+  {id:75,title:"Dấu hiệu nhận diện ứng viên D khi phỏng vấn",cat:"Playbook quản lý",options:{D:"Nói ngắn, confident, hay hỏi ngược lại, muốn biết challenge",I:"Nói nhiều, kể story, năng lượng cao, hỏi về culture/team",S:"Nói chậm, cẩn thận, hỏi về stability, team, manager style",C:"Hỏi chi tiết JD, tech stack, quy trình, tiêu chuẩn"}},
+  {id:76,title:"Onboarding D: Tuần đầu nên?",cat:"Playbook quản lý",options:{D:"Cho context nhanh + giao task nhỏ ngay — D ghét ngồi không",I:"Giới thiệu team, đưa đi ăn trưa, kết nối social",S:"Giới thiệu từ từ, có buddy, hướng dẫn kỹ từng bước",C:"Gửi tài liệu đầy đủ trước, cho thời gian đọc + làm quen"}},
+  {id:77,title:"Dấu hiệu D SẮP NGHỈ VIỆC",cat:"Playbook quản lý",options:{D:"Cáu gắt hơn, challenge quyết định liên tục, disengage",I:"Trầm hẳn, ít nói, không đóng góp ý tưởng — khác hẳn bình thường",S:"Thụ động hơn bình thường, disconnect team activities",C:"Ngừng góp ý, làm cho xong thay vì làm cho tốt"}},
+  {id:78,title:"Cách giữ người nhóm I",cat:"Playbook quản lý",options:{D:"Giao thử thách mới, mở rộng scope, cho lead project",I:"Khen công khai, tạo cơ hội tỏa sáng, involve vào việc đặc biệt",S:"Ổn định, quan tâm cá nhân, bảo vệ khỏi thay đổi không cần thiết",C:"Cho thời gian làm kỹ, tôn trọng ý kiến, giao việc chất lượng cao"}},
+  {id:79,title:"Câu giữ người cho S",cat:"Playbook quản lý",options:{D:"'Anh thấy em có thể handle bài toán lớn hơn'",I:"'Team rất cần năng lượng và ý tưởng của em'",S:"'Em là người anh tin tưởng nhất, anh rất trân trọng'",C:"'Không ai trong team có chuyên môn sâu như em'"}},
+  {id:80,title:"Sai lầm onboarding với I",cat:"Playbook quản lý",options:{D:"Cho ngồi training cả tuần → chán",I:"Để tự onboard một mình → I cần interaction",S:"Throw vào task khó ngay ngày đầu → hoảng",C:"Onboard bằng miệng không tài liệu → mất phương hướng"}},
+  {id:81,title:"Manager D: Tác động đến team",cat:"Điểm mạnh/yếu theo ngữ cảnh",options:{D:"✅ Quyết nhanh trong khủng hoảng, push KPI ❌ Tạo môi trường 'sợ sếp', burn out members",I:"✅ Truyền cảm hứng, gắn kết ❌ Quên follow-up, trượt deadline, thiếu cấu trúc",S:"✅ Tạo tâm lý an toàn, lắng nghe sâu ❌ Tránh quyết định cứng, bảo vệ team quá",C:"✅ Hệ thống hóa, quality cao ❌ Phân tích quá lâu, ít khen, khó trao quyền"}},
+  {id:82,title:"Member I: Manager nên giao task gì?",cat:"Điểm mạnh/yếu theo ngữ cảnh",options:{D:"Task có thách thức + autonomy cao. Nói rõ WHAT, không quy định HOW",I:"Task có tương tác + đa dạng. Set milestone NGẮN, check-in thường xuyên. Pair với C",S:"Task ổn định + rõ ràng. Báo trước thay đổi. 1:1 đều đặn",C:"Task cần precision + đủ thời gian. Cung cấp data đầy đủ"}},
+  {id:83,title:"Vai trò D phù hợp nhất trong nhóm",cat:"Điểm mạnh/yếu theo ngữ cảnh",options:{D:"Project Lead / Decision Maker / Closer — đẩy nhóm đi tới quyết định",I:"Brainstormer / Spokesperson / Motivator — giữ tinh thần + sáng tạo",S:"Mentor / Support / Quality of life keeper — giúp team bền vững dài hạn",C:"Analyst / Quality Gate / Risk Manager — giai đoạn refine + ship cần chắc chắn"}},
+  {id:84,title:"D ra quyết định phù hợp nhất khi nào?",cat:"Điểm mạnh/yếu theo ngữ cảnh",options:{D:"Khủng hoảng, deadline cực gấp, vấn đề rõ ràng cần action ngay",I:"Branding, marketing, văn hóa — nơi cảm xúc + energy quan trọng",S:"Restructuring, văn hóa team, change đòi đồng thuận",C:"Quyết định kỹ thuật, audit, compliance, financial — sai sót tốn kém"}},
+  {id:85,title:"S trong thay đổi: Manager nên làm gì?",cat:"Điểm mạnh/yếu theo ngữ cảnh",options:{D:"Show CƠ HỘI + CHALLENGE. Giao role lead change. Cho autonomy",I:"Cho role 'evangelist'. Set milestone NGẮN. Pair với S/C theo dõi execution",S:"Báo TRƯỚC 2-4 tuần. Giải thích WHY rõ. Đảm bảo S thấy KHÔNG BỊ BỎ LẠI",C:"Show DATA + LOGIC. Trả lời CHI TIẾT. Cho role analyze risk + design quy trình mới"}},
+  {id:86,title:"Sai lầm #1 khi dùng DISC",cat:"Điểm mạnh/yếu theo ngữ cảnh",options:{D:"Dán nhãn cứng: 'Em là D nên không có đồng cảm' — DISC là xu hướng, không phải định mệnh",I:"So sánh tốt - xấu: Không có nhóm 'tốt nhất' — mỗi điểm mạnh đi kèm điểm yếu",S:"Ép member sửa điểm yếu: Manager giỏi LEVERAGE điểm mạnh + BÙ ĐẮP qua pairing",C:"Bỏ qua context: Cùng 1 người, ở môi trường khác có thể bộc lộ DISC khác"}},
+  {id:87,title:"C khi làm member: Điểm yếu chính",cat:"Điểm mạnh/yếu theo ngữ cảnh",options:{D:"Khó tuân thủ quy trình, có thể vượt quyền, thiếu kiên nhẫn với teammate",I:"Hứa nhanh quên nhanh, bắt đầu nhiều hoàn thành ít, cảm tính khi nhận feedback",S:"Ngại đề xuất ý kiến, khó nói KHÔNG → overload, giấu vấn đề",C:"Chậm khi cần ship nhanh, quá nhiều 'yes, but...', lone wolf, phê phán ngầm"}},
+  {id:88,title:"I trong change management: Điểm yếu chính",cat:"Điểm mạnh/yếu theo ngữ cảnh",options:{D:"Phản đối nếu mất kiểm soát, đi quá nhanh team không theo kịp",I:"Hào hứng ban đầu nhưng nguội nhanh, quên follow through, cam kết verbal nhưng không action",S:"Resist mạnh ban đầu, cần thời gian dài buy-in, lo lắng âm thầm",C:"Đòi đủ data trước khi action, nhiều 'yes, but...', resist nếu plan thiếu cơ sở"}},
+  {id:89,title:"Cách dùng DISC đúng",cat:"Điểm mạnh/yếu theo ngữ cảnh",options:{D:"Dùng để HIỂU, không LABEL",I:"Pair team theo bổ trợ: D-S, I-C",S:"Review lại mỗi 6 tháng",C:"Tất cả các câu trên đều đúng ✅"}},
+  {id:90,title:"Manager S: Tác động đến team",cat:"Điểm mạnh/yếu theo ngữ cảnh",options:{D:"Hiệu suất cao nhưng turnover cao — members nghỉ vì không có không gian",I:"Vui vẻ, gắn kết nhưng thiếu kỷ luật — hay miss deadline",S:"Gắn kết, ít stress nhưng tăng trưởng chậm — member yếu được dung dưỡng quá lâu",C:"Output chất lượng nhưng động lực thấp — innovation thấp vì phải 'theo quy trình'"}},
 ];
 
 const CATS = [...new Set(QUESTIONS.map(q=>q.cat))];
-let answers = {}, activeCat = 0, expandedQ = null;
+const QUIZ_CORRECT = {
+  1:'D',2:'I',3:'S',4:'C',5:'D',6:'I',7:'S',8:'D',9:'I',10:'S',
+  11:'C',12:'D',13:'I',14:'S',15:'C',16:'D',17:'I',18:'S',19:'C',20:'D',
+  21:'I',22:'S',23:'C',24:'D',25:'I',26:'S',27:'C',28:'D',29:'I',30:'S',
+  31:'C',32:'D',33:'I',34:'S',35:'C',36:'D',37:'I',38:'S',39:'C',40:'D',
+  41:'I',42:'S',43:'C',44:'D',45:'I',46:'S',47:'C',48:'D',49:'I',50:'S',
+  51:'D',52:'I',53:'S',54:'C',55:'D',56:'I',57:'S',58:'C',59:'D',60:'I',
+  61:'D',62:'I',63:'D',64:'D',65:'S',66:'I',67:'S',68:'C',69:'I',70:'S',
+  71:'D',72:'D',73:'I',74:'S',75:'D',76:'D',77:'D',78:'I',79:'S',80:'I',
+  81:'D',82:'I',83:'D',84:'D',85:'S',86:'D',87:'C',88:'I',89:'C',90:'S'
+};
+let answers = {}, activeCat = 0, expandedQ = null, correctCount = 0;
 
 function showHome(){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById('page-home').classList.add('active');window.scrollTo(0,0);}
 function showLearn(id){
@@ -417,7 +733,7 @@ function showResult(){
   document.getElementById('page-result').classList.add('active');
   renderResult(); window.scrollTo(0,0);
 }
-function resetQuiz(){answers={};activeCat=0;expandedQ=null;showQuiz();}
+function resetQuiz(){answers={};activeCat=0;expandedQ=null;correctCount=0;showQuiz();}
 
 function renderLearn(id){
   const t = KNOWLEDGE[id];
@@ -425,19 +741,34 @@ function renderLearn(id){
   let h = `<h2 style="margin-bottom:20px">${t.title}</h2>`;
   t.sections.forEach(sec=>{
     h += `<p class="section-label">${sec.heading}</p>`;
-    sec.items.forEach(item=>{
-      const cls = item.disc.toLowerCase();
-      h += `<div class="disc-item ${cls}-bg">
-        <div class="disc-item-header">
-          <span class="badge badge-${cls}">${item.disc}</span>
-          <span class="${cls}-color" style="font-weight:600;font-size:13px">${DISC_LABEL[item.disc]}</span>
-          ${'symbol' in item ? `<span style="font-size:12px;color:#9ca3af;margin-left:auto">${item.symbol}</span>` : ''}
-        </div>
-        ${'keywords' in item ? `<p style="font-size:13px;font-weight:600;color:${DISC_COLORS[item.disc]};margin-bottom:4px">${item.keywords}</p>` : ''}
-        ${'quote' in item ? `<p style="font-size:13px;color:#6b7280;font-style:italic;margin:0">${item.quote}</p>` : ''}
-        ${'detail' in item ? `<p class="disc-item-body">${item.detail.replace(/\n/g,'<br>')}</p>` : ''}
-      </div>`;
-    });
+    const hasAll4 = ['D','I','S','C'].every(d=>sec.items.some(i=>i.disc===d));
+    if(hasAll4){
+      h += `<div class="disc-table-wrap"><table class="disc-table">
+        <thead><tr><th>🔴 D</th><th>🟡 I</th><th>🟢 S</th><th>🔵 C</th></tr></thead><tbody><tr>`;
+      ['D','I','S','C'].forEach(d=>{
+        const item = sec.items.find(i=>i.disc===d);
+        let cell = '';
+        if(item){
+          if(item.symbol) cell += `<strong>${item.symbol}</strong><br>`;
+          if(item.keywords) cell += `<em style="color:${DISC_COLORS[d]}">${item.keywords}</em><br>`;
+          if(item.quote) cell += `<span style="color:#6b7280;font-style:italic">${item.quote}</span><br>`;
+          if(item.detail) cell += item.detail.replace(/\\n/g,'<br>');
+        }
+        h += `<td>${cell}</td>`;
+      });
+      h += `</tr></tbody></table></div>`;
+    } else {
+      sec.items.forEach(item=>{
+        const cls = item.disc.toLowerCase();
+        h += `<div class="disc-item ${cls}-bg">
+          <div class="disc-item-header">
+            <span class="badge badge-${cls}">${item.disc}</span>
+            <span class="${cls}-color" style="font-weight:600;font-size:13px">${DISC_LABEL[item.disc]}</span>
+          </div>
+          ${'detail' in item ? `<p class="disc-item-body">${item.detail.replace(/\\n/g,'<br>')}</p>` : ''}
+        </div>`;
+      });
+    }
   });
   document.getElementById('learn-content').innerHTML = h;
 }
@@ -457,13 +788,15 @@ function renderQuizQuestions(){
   const container = document.getElementById('quiz-questions');
   container.innerHTML = qs.map(q=>{
     const ans = answers[q.id];
+    const correct = QUIZ_CORRECT[q.id];
+    const isCorrect = ans === correct;
     const expanded = expandedQ===q.id;
-    return `<div class="acc-item ${ans?'answered':''}" id="acc-${q.id}">
+    return `<div class="acc-item ${ans?(isCorrect?'answered':'wrong-answer'):''}" id="acc-${q.id}">
       <div class="acc-header" onclick="toggleQ(${q.id})">
-        <span style="width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;background:${ans?'#DCFCE7':'#f3f4f6'};color:${ans?'#16A34A':'#9ca3af'};font-weight:600;font-size:12px;flex-shrink:0">${ans?'✓':q.id}</span>
+        <span style="width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;background:${ans?(isCorrect?'#DCFCE7':'#FEE2E2'):'#f3f4f6'};color:${ans?(isCorrect?'#16A34A':'#E53935'):'#9ca3af'};font-weight:600;font-size:12px;flex-shrink:0">${ans?(isCorrect?'\u2713':'\u2717'):q.id}</span>
         <span style="flex:1;font-size:14px;font-weight:${ans?400:500}">${q.title}</span>
-        ${ans?`<span class="answered-badge" style="background:${DISC_COLORS[ans]}20;color:${DISC_COLORS[ans]}">${ans}</span>`:''}
-        <span class="chevron">${expanded?'▲':'▼'}</span>
+        ${ans?`<span style="font-size:14px">${isCorrect?'\u2705':'\u274c'}</span>`:''}
+        <span class="chevron">${expanded?'\u25b2':'\u25bc'}</span>
       </div>
       ${expanded ? `<div class="acc-body">${renderOptions(q)}</div>` : ''}
     </div>`;
@@ -473,63 +806,58 @@ function renderQuizQuestions(){
   prev.disabled = activeCat===0; prev.style.opacity = activeCat===0?'0.4':'1';
   if(activeCat===CATS.length-1){
     const total = Object.values(answers).filter(Boolean).length;
-    const allDone = total===50;
-    next.textContent = allDone ? 'Xem kết quả →' : `Còn ${50-total} câu`;
+    const allDone = total===QUESTIONS.length;
+    next.textContent = allDone ? 'Xem k\u1ebft qu\u1ea3 \u2192' : `C\u00f2n ${QUESTIONS.length-total} c\u00e2u`;
     next.style.background = allDone?'#16A34A':'#9ca3af';
     next.onclick = allDone ? showResult : null;
   } else {
-    next.textContent = 'Tiếp →';
+    next.textContent = 'Ti\u1ebfp \u2192';
     next.style.background = '#1D4ED8';
     next.onclick = quizNext;
   }
 }
 
 function renderOptions(q){
-  return ['D','I','S','C'].map(disc=>{
-    const sel = answers[q.id]===disc;
-    const cl = sel ? `selected-${disc.toLowerCase()}` : '';
-    const badgeCl = sel ? `sel sel-${disc.toLowerCase()}` : '';
-    return `<div class="quiz-opt ${cl}" onclick="selectAnswer(${q.id},'${disc}')">
-      <span class="opt-badge ${badgeCl}">${disc}</span>
-      <span style="font-size:13px;line-height:1.6;flex:1">${q.options[disc]}</span>
+  const correct = QUIZ_CORRECT[q.id];
+  const ans = answers[q.id];
+  const behavior = q.options[correct];
+  let html = `<div style="padding:12px 14px;border-radius:10px;background:#f9fafb;border:1px solid #e5e7eb;margin-bottom:10px;font-size:13px;line-height:1.7">
+    <div style="font-size:11px;color:#9ca3af;text-transform:uppercase;margin-bottom:4px;font-weight:600">\ud83d\udcd6 M\u00f4 t\u1ea3 h\u00e0nh vi</div>
+    <div style="font-weight:500;color:#1a1a1a">"${behavior}"</div>
+    <div style="margin-top:6px;font-size:12px;color:#6b7280">\ud83d\udc46 \u0110\u00e2y l\u00e0 \u0111\u1eb7c tr\u01b0ng c\u1ee7a nh\u00f3m n\u00e0o?</div>
+  </div>`;
+  html += ['D','I','S','C'].map(disc=>{
+    const isCorrectOpt = disc === correct;
+    const isSelected = ans === disc;
+    let cl = '', badgeBg = '#f3f4f6', badgeColor = '#6b7280';
+    if(ans){
+      if(isCorrectOpt){ cl = 'quiz-correct'; badgeBg = '#16A34A'; badgeColor = '#fff'; }
+      else if(isSelected){ cl = 'quiz-wrong'; badgeBg = '#E53935'; badgeColor = '#fff'; }
+    }
+    return `<div class="quiz-opt ${cl}" onclick="${ans?'':'selectAnswer('+q.id+',\''+disc+'\')'}"
+      style="${ans?'cursor:default':''};${ans && !isCorrectOpt && !isSelected?'opacity:0.5':''}">
+      <span class="opt-badge" style="background:${badgeBg};color:${badgeColor}">${disc}</span>
+      <span style="font-size:13px;line-height:1.6;flex:1;font-weight:${isCorrectOpt && ans?600:400}">${disc} \u2014 ${DISC_LABEL[disc]}</span>
     </div>`;
-  }).join('') + (answers[q.id] ? `<div style="padding:10px 13px;border-radius:10px;margin-top:4px;background:${DISC_COLORS[answers[q.id]]}15;border:1px solid ${DISC_COLORS[answers[q.id]]}40;font-size:13px;color:${DISC_COLORS[answers[q.id]]};font-weight:600">
-    ${DISC_ICON[answers[q.id]]} Bạn chọn: ${answers[q.id]} — ${DISC_LABEL[answers[q.id]]} <span style="font-weight:400;color:#6b7280">· ${DISC_DESC[answers[q.id]]}</span>
-  </div>` : '');
+  }).join('');
+  if(ans){
+    const isCorrect = ans === correct;
+    html += `<div style="padding:12px 14px;border-radius:10px;margin-top:6px;background:${isCorrect?'#F0FDF4':'#FEF2F2'};border:1px solid ${isCorrect?'#BBF7D0':'#FECACA'};font-size:13px;line-height:1.6">
+      <div style="font-weight:600;color:${isCorrect?'#16A34A':'#E53935'};margin-bottom:4px">${isCorrect?'\u2705 Ch\u00ednh x\u00e1c!':'\u274c Sai r\u1ed3i! \u0110\u00e1p \u00e1n \u0111\u00fang: '+correct+' \u2014 '+DISC_LABEL[correct]}</div>
+      <div style="color:#6b7280;font-size:12px">\ud83d\udcdd M\u00f4 t\u1ea3 \u0111\u1ea7y \u0111\u1ee7 4 nh\u00f3m:</div>
+      ${['D','I','S','C'].map(d=>`<div style="font-size:12px;margin-top:4px"><span style="color:${DISC_COLORS[d]};font-weight:600">${d}:</span> ${q.options[d]}</div>`).join('')}
+    </div>`;
+  }
+  return html;
 }
 
 function selectAnswer(qId, disc){
-  if(answers[qId]===disc) delete answers[qId]; else answers[qId]=disc;
+  if(answers[qId]) return;
+  answers[qId] = disc;
+  if(disc === QUIZ_CORRECT[qId]) correctCount++;
   updateQuizProgress();
-  const q = QUESTIONS.find(q=>q.id===qId);
-  const item = document.getElementById(`acc-${qId}`);
-  if(item){
-    item.className = `acc-item ${answers[qId]?'answered':''}`;
-    const header = item.querySelector('.acc-header');
-    const badge = item.querySelector('.answered-badge');
-    const numSpan = header.querySelector('span:first-child');
-    numSpan.style.background = answers[qId]?'#DCFCE7':'#f3f4f6';
-    numSpan.style.color = answers[qId]?'#16A34A':'#9ca3af';
-    numSpan.textContent = answers[qId]?'✓':qId;
-    if(answers[qId]){
-      if(!badge){
-        const b = document.createElement('span');
-        b.className='answered-badge'; b.style.background=`${DISC_COLORS[answers[qId]]}20`; b.style.color=DISC_COLORS[answers[qId]]; b.textContent=answers[qId];
-        header.insertBefore(b, header.querySelector('.chevron'));
-      } else {badge.style.background=`${DISC_COLORS[answers[qId]]}20`;badge.style.color=DISC_COLORS[answers[qId]];badge.textContent=answers[qId];}
-    } else if(badge) badge.remove();
-    const body = item.querySelector('.acc-body');
-    if(body) body.innerHTML = renderOptions(q);
-  }
+  renderQuizQuestions();
   renderQuizTabs();
-  const total = Object.values(answers).filter(Boolean).length;
-  if(activeCat===CATS.length-1){
-    const next = document.getElementById('btn-next');
-    const allDone = total===50;
-    next.textContent = allDone?'Xem kết quả →':`Còn ${50-total} câu`;
-    next.style.background = allDone?'#16A34A':'#9ca3af';
-    next.onclick = allDone?showResult:null;
-  }
 }
 
 function toggleQ(id){
@@ -543,25 +871,32 @@ function quizPrev(){if(activeCat>0){activeCat--;expandedQ=null;renderQuizTabs();
 
 function updateQuizProgress(){
   const total = Object.values(answers).filter(Boolean).length;
-  document.getElementById('quiz-progress-text').textContent=`${total}/50`;
-  document.getElementById('quiz-progress-bar').style.width=`${(total/50)*100}%`;
+  document.getElementById('quiz-progress-text').textContent=`${correctCount}\u2713 ${total}/${QUESTIONS.length}`;
+  document.getElementById('quiz-progress-bar').style.width=`${(total/QUESTIONS.length)*100}%`;
 }
 
 function renderResult(){
   const total = Object.values(answers).filter(Boolean).length;
-  document.getElementById('result-emoji').textContent = total>=45?'🏆':total>=30?'🌟':'📚';
-  document.getElementById('result-score').textContent = total;
+  const pct = total > 0 ? Math.round((correctCount/total)*100) : 0;
+  document.getElementById('result-emoji').textContent = pct>=80?'\ud83c\udfc6':pct>=60?'\ud83c\udf1f':'\ud83d\udcda';
+  document.getElementById('result-score').innerHTML = `<span style="color:${pct>=80?'#16A34A':pct>=60?'#F59E0B':'#E53935'}">${correctCount}</span><span style="font-size:24px;color:#6b7280">/${total}</span>`;
   const catScores = {};
-  CATS.forEach(c=>{catScores[c]={total:0,answered:0};});
-  QUESTIONS.forEach(q=>{catScores[q.cat].total++;if(answers[q.id])catScores[q.cat].answered++;});
+  CATS.forEach(c=>{catScores[c]={total:0,answered:0,correct:0};});
+  QUESTIONS.forEach(q=>{
+    catScores[q.cat].total++;
+    if(answers[q.id]){
+      catScores[q.cat].answered++;
+      if(answers[q.id]===QUIZ_CORRECT[q.id]) catScores[q.cat].correct++;
+    }
+  });
   document.getElementById('result-cats').innerHTML = CATS.map(cat=>{
-    const s=catScores[cat]; const pct=Math.round((s.answered/s.total)*100);
+    const s=catScores[cat]; const pctCat = s.answered>0 ? Math.round((s.correct/s.answered)*100) : 0;
     return `<div class="card" style="margin-bottom:8px">
       <div style="display:flex;justify-content:space-between;margin-bottom:8px">
         <span style="font-size:13px;font-weight:500">${cat}</span>
-        <span style="font-size:13px;color:${pct===100?'#16A34A':'#6b7280'}">${s.answered}/${s.total}</span>
+        <span style="font-size:13px;color:${pctCat>=80?'#16A34A':pctCat>=60?'#F59E0B':'#E53935'}">${s.correct}/${s.answered} \u0111\u00fang (${pctCat}%)</span>
       </div>
-      <div class="progress-bar"><div class="progress-fill" style="width:${pct}%;background:${pct===100?'#16A34A':'#1D4ED8'}"></div></div>
+      <div class="progress-bar"><div class="progress-fill" style="width:${s.answered>0?(s.correct/s.total)*100:0}%;background:${pctCat>=80?'#16A34A':pctCat>=60?'#F59E0B':'#E53935'}"></div></div>
     </div>`;
   }).join('');
 }
